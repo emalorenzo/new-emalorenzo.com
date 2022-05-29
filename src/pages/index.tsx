@@ -13,6 +13,8 @@ const Wrapper = styled.main`
   min-height: 100%;
   max-width: 1200px;
   flex: 1;
+  padding-left: var(--gap);
+  padding-right: var(--gap);
 `;
 
 const Cards = styled.div`

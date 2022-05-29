@@ -30,6 +30,8 @@ const Article = styled(motion.article)`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding-left: var(--gap);
+  padding-right: var(--gap);
 `;
 
 const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
