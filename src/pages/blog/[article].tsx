@@ -18,20 +18,22 @@ const Wrapper = styled.main`
   flex: 1;
   margin-top: 100px;
   padding-bottom: calc(var(--gap) * 8);
+  padding-left: calc(var(--gap) * 6);
+  padding-right: calc(var(--gap) * 6);
 `;
 
 const ImageWrapper = styled.div`
   position: relative;
-  width: 100%;
+  width: calc(100% + var(--gap) * 12);
   height: 300px;
+  margin-left: calc(var(--gap) * -6);
 `;
 
 const Article = styled(motion.article)`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-left: var(--gap);
-  padding-right: var(--gap);
+  max-width: min(686px, 100%);
 `;
 
 const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {

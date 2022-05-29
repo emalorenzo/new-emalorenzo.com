@@ -15,6 +15,11 @@ const Wrapper = styled.article`
   flex-direction: row;
   align-items: center;
   position: relative;
+
+  @media (max-width: 480px) {
+    width: calc(100% + var(--gap) * 2);
+    margin-left: calc(var(--gap) * -1);
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -80,7 +85,7 @@ export const Card = ({ slug, image, title, summary }) => {
       <Anchor>
         <Wrapper>
           <ImageWrapper>
-            <Image src={image} layout="fill" />
+            <Image src={image} layout="fill" objectFit="cover" />
           </ImageWrapper>
           <Content>
             <TitleWrapper>
