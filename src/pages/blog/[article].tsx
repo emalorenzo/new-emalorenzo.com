@@ -18,12 +18,14 @@ const Wrapper = styled.main`
   flex: 1;
   margin-top: 100px;
   padding-bottom: calc(var(--gap) * 8);
-  padding-left: calc(var(--gap) * 6);
-  padding-right: calc(var(--gap) * 6);
+  margin-left: calc(var(--gap) * 6);
+  margin-right: calc(var(--gap) * 6);
+  padding-left: calc(var(--gap) * 1);
+  padding-right: calc(var(--gap) * 1);
 
   @media (max-width: 480px) {
-    padding-left: calc(var(--gap) * 1);
-    padding-right: calc(var(--gap) * 1);
+    margin-left: 0;
+    margin-right: 0;
   }
 `;
 
