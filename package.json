@@ -22,7 +22,10 @@
   },
   "dependencies": {
     "@next/bundle-analyzer": "^12.1.0",
+    "framer-motion": "^6.3.4",
+    "gray-matter": "^4.0.3",
     "next": "^12.1.0",
+    "next-mdx-remote": "^4.0.3",
     "react": "^18.0.0-rc.1",
     "react-dom": "^18.0.0-rc.1",
     "styled-components": "^5.3.3"

@@ -3,19 +3,17 @@ import styled from 'styled-components';
 import { COLORS } from '@/theme';
 
 export const Wrapper = styled.div`
-  height: 100%;
   display: flex;
   flex-direction: column;
   background-color: var(--background);
-`;
-
-export const Content = styled.main`
-  flex: 1;
+  max-width: 1200px;
+  min-height: 100%;
+  margin: 0 auto;
 `;
 
 export const Footer = styled.footer`
-  background-color: var(--foreground);
-  border-top: 1px solid hsl(${COLORS.backgroundHue} 10% 80%);
+  background-color: var(--background);
+  border-top: 1px solid #fff;
   color: var(--color);
   padding: 2rem;
   display: flex;

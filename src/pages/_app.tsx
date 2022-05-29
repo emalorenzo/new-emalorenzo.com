@@ -6,6 +6,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout || ((page) => page);
   return getLayout(
     <>
+      {/* @ts-ignore */}
       <Component {...pageProps} />
       <GlobalStyles />
     </>
