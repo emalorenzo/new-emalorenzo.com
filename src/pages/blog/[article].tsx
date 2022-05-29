@@ -20,6 +20,11 @@ const Wrapper = styled.main`
   padding-bottom: calc(var(--gap) * 8);
   padding-left: calc(var(--gap) * 6);
   padding-right: calc(var(--gap) * 6);
+
+  @media (max-width: 480px) {
+    padding-left: calc(var(--gap) * 1);
+    padding-right: calc(var(--gap) * 1);
+  }
 `;
 
 const ImageWrapper = styled.div`
