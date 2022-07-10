@@ -1,3 +1,5 @@
+import '@/styles/global.css';
+
 import { GlobalStyles } from '@/components';
 import type { AppPropsWithLayout } from '@/types';
 
