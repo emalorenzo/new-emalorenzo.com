@@ -1,35 +1,56 @@
 ---
-title: 'Intro a Threejs'
+title: 'Introducción al 3D en la Web'
+subtitle: ' El punto de partida a un viaje con Three.js'
 publishedAt: '2022-05-28'
-summary: 'Vamos a aprender como funciona el internet para entender que es lo que vamos a estar aprendiendo a lo largo de este ciclo.'
-image: '/images/art.jpg'
+summary: 'Alguna vez te preguntaste como se hace un videojuego? Algunas de las webs que mas impresionan usan las mismas técnicas.'
+image: '/images/DALL·E 2022-07-13 20.01.45 - a universe with a portal to another dimension.png'
+tags: ['3D']
 ---
 
-### Aprender programación puede ser abrumador, por eso es mejor hacerlo juntos.
+En enero de 2021 me topé de casualidad con un sitio que me hizo replantearme lo que se puede hacer con las tecnologías web y poco después me hizo pivotar mi carrera hacia un nuevo rumbo. Era [Nomadic Tribe](https://2019.makemepulse.com/), del estudio creativo [makemepulse](https://www.makemepulse.com/).
 
----
+<Figure figcaption="Nomadic Tribe, por Makemepulse">
+  <source src="https://i.gyazo.com/f5e0dbc46a5ec4b60d4d82284118e432.mp4" type="video/mp4" />
+</Figure>
 
-## Que es Coderhood?
-Somos una comunidad de gente en tech que aprende y comparte conocimiento. Por eso impulsamos varios espacios y en ellos compartimos lo que sabemos. No sabemos todo, el mundo tech es enorme y lleva una vida de aprendizaje, pero mientras vamos aprendiendo creemos que compartido el viaje es mejor. Por eso incentivamos siempre a que una vez se aprenda algo, le que quiera pueda compartirlo y asi crecer juntos. Coderhood es y siempre va a ser gratis, tanto la comunidad, como las clases y cualquiera de sus espacios.
+Todavía me acuerdo cuando tuve que elegír mi carrera a los 17 años. Amaba el diseño, también me llamaba mucho la atención la programación. Al final, elegí el camino del desarrollo de software pero siempre el diseño me quedó marcado. Mis jefes en mis primeros trabajos en software factories me retaron varias veces por gastar demasiado tiempo en algunas animaciones o en pulir la UI y priorizarla la visual a la lógica.
 
----
+Otra cosa que siempre amé fueron los videojuegos, sobre todo los que buscan contar una historia o generar una experiencia audiovisual donde perderse.
 
-## Nuestros espacios
+Al experimentar Nomadic Tribe me emocioné de pensar que esto se puede hacer en la web, y que había un equipo que su trabajo fue generar una experiencia como esta, pulida al máximo. Alguna que otra vez ya me había topado con páginas así pero esta vez se me ocurrió investigar de donde venía esta magia. Resulta que esta tarea la realizan los *✨estudios creativos✨*, estudios que no buscan resolver problemas a sus clientes, sino crear experiencias audiovisuales combinando técnicas de motion design, animaciones, 3D, y mucho más.
 
-[Discord](https://discord.gg/JJpBQYJ): Nuestra casa donde vive la comunidad. Discord es un chat con canales de texto, y voz, con posibilidad de hacer llamadas y compartir pantalla. Usamos diferentes canales para cada tema en particular, #academy es el que vamos usar para lo relacionado a Coderhood Academy, justo a los canales específicos de cada módulo. También hay canales de consultas generales, experiencia laboral, busquedas de trabajo, espacios para hablar en ingles, canales de tópicos por tecnologías, etc.
+Al ver los trabajos de estudios como [makemepulse](https://www.makemepulse.com/), [Active Theory](https://activetheory.net/) o [Resn](https://resn.co.nz/) me dí cuenta que quería trabajar de esto y empecé a aprender tecnologías usadas en estos proyectos. En este espacio te voy a compartir mis aprendizajes, como me salga, seguramente a medida que vaya escribiendo vaya encontrando mi tono o voz al escribir. 
 
----
+<SideNote variant="disclaimer">
+Este espacio es open source, si encontrás alguna sugerencía o mejora para el contenido que comparto podes hacerme un Pull Request <Link href="https://github.com/emaLorenzo/emalorenzo.com" variant="repo">en mi repositorio</Link>, o hablarme directamente por <Link href="https://twitter.com/emalorenzo_" variant="twitter">Twitter</Link>. Te prometo revisarlo.
+</SideNote>
 
-## El equipo
-Coderhood somos todes les que participamos, y el equipo que lleva adelante los espacios. Este equipo lo vas a encontrar en Discord con el rol @team. Les integrantes del equipo son personas que comparten el sentir de compartir conocimiento y poden de su parte, con lo que saben y aprenden, para ayudar a difundirlo. No somos profesores que estudiamos como enseñar programación, y ninguno esta ganando dinero haciendo esto, somos un grupo de personas dando lo mejor para ayudarnos, por eso nunca te olvides de ser agradecido con ellos. Si aprendiste algo y querés compartirlo, o sabes hacer alguna de las [tareas en las que necesitamos ayuda](https://coderhood.dev/join-team) y te gustaría colaborar hablale a cualquiera del @team que con gusto te vamos a sumar!
+Empezemos desde el principio.
 
----
+## Quien controla los gráficos
+Ya sea que jugamos un videojuego o que corremos una página web con 3D, el que se encarga de renderizar utilizando nuestro hardware es el driver de gráficos.
 
-## Nuestros espacios
+Simplicando podriamos decir:
+* **DirectX**: Gráficos en Windows.
+* **Metal**: Gráficos en macOS.
+* **OpenGL**: Gráficos en múltiples sistemas operativos, incluyendo Linux. Su api es mas bajo nivel.
+* **Vulkan**: Nextgen OpenGL.
+* **WebGL**: Implementa OpenGL para la web.
+* **WebGPU**: Nextgen WebGL. Implementa DirectX, Metal y Vulkan en la web. Está en desarrollo.
 
-[Discord](https://discord.gg/JJpBQYJ): Nuestra casa donde vive la comunidad. Discord es un chat con canales de texto, y voz, con posibilidad de hacer llamadas y compartir pantalla. Usamos diferentes canales para cada tema en particular, #academy es el que vamos usar para lo relacionado a Coderhood Academy, justo a los canales específicos de cada módulo. También hay canales de consultas generales, experiencia laboral, busquedas de trabajo, espacios para hablar en ingles, canales de tópicos por tecnologías, etc.
+WebGL es el motor de gráficos para la web, tiene una api de muy bajo nivel lo que da muchísimo control pero un gran poder conlleva una gran dificultad.
 
----
+<SideNote>Si queres leer sobre WebGL, un recurso muy usado para aprenderlo es [webgl2fundamentals](https://webgl2fundamentals.org/).</SideNote>
 
-## El equipo
-Coderhood somos todes les que participamos, y el equipo que lleva adelante los espacios. Este equipo lo vas a encontrar en Discord con el rol @team. Les integrantes del equipo son personas que comparten el sentir de compartir conocimiento y poden de su parte, con lo que saben y aprenden, para ayudar a difundirlo. No somos profesores que estudiamos como enseñar programación, y ninguno esta ganando dinero haciendo esto, somos un grupo de personas dando lo mejor para ayudarnos, por eso nunca te olvides de ser agradecido con ellos. Si aprendiste algo y querés compartirlo, o sabes hacer alguna de las [tareas en las que necesitamos ayuda](https://coderhood.dev/join-team) y te gustaría colaborar hablale a cualquiera del @team que con gusto te vamos a sumar!
+
+## Three.js y React Three Fiber
+Three.js es una librería de JavaScript que nos abstrae de tener que codear directamente en WebGL, nos da una interfaz de más alto nivel.
+
+Es el motor de gráficos mas usado para web, [en su página](https://threejs.org/) se pueden encontrar muchisimos ejemplos y material de aprendizaje.
+
+<Figure figcaption="RectAreaLight, uno de los ejemplos de la web de Three.js">
+  <source src="https://i.gyazo.com/ce72f2fdb4d21c3faf7d1270ba5b7896.mp4" type="video/mp4" />
+</Figure>
+
+
+<SideNote variant="material">El mejor material para empezar con Three.js es [Three.js Journey](https://threejs-journey.com/). Si bien el curso vale **95usd** la inversión vale la pena.</SideNote>

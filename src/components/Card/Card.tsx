@@ -51,9 +51,9 @@ const TitleWrapper = styled.div`
   width: fit-content;
 `;
 
-const Title = styled.h2`
-  font-size: ${`${21 / 16}rem`};
-  font-weight: 400;
+const Title = styled.h3`
+  font-size: ${`${22 / 16}rem`};
+  font-weight: 600;
   transition: transform 0.2s ease-in-out;
   will-change: transform;
 
@@ -79,7 +79,11 @@ const Line = styled(motion.div)`
   }
 `;
 
-export const Card = ({ slug, image, title, summary }) => {
+const Subtitle = styled.h4`
+  font-size: ${`${14 / 16}rem`};
+`;
+
+export const Card = ({ slug, image, title, subtitle, summary }) => {
   return (
     <Link href={slug} passHref>
       <Anchor>
@@ -92,7 +96,8 @@ export const Card = ({ slug, image, title, summary }) => {
               <Title>{title}</Title>
               <Line />
             </TitleWrapper>
-            <Summary>{summary}</Summary>
+            <Subtitle className="text-pink-800">{subtitle}</Subtitle>
+            <Summary className="mt-4">{summary}</Summary>
           </Content>
         </Wrapper>
       </Anchor>

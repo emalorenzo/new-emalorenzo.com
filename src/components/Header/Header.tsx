@@ -10,18 +10,24 @@ const Wrapper = styled.header`
   z-index: 2;
   mix-blend-mode: difference;
   top: 0;
-  padding: 0.7rem;
+  padding: 0.7rem 0;
   font-size: 1rem;
   font-weight: 300;
   width: 100%;
-  max-width: 1200px;
+  max-width: var(--max-width);
   margin-left: auto;
   margin-right: auto;
   left: 0;
   right: 0;
+  display: flex;
+  justify-content: space-between;
+  height: var(--header-height);
+  align-items: center;
+  padding: 0 var(--gap);
 
   a {
     color: white;
+    text-decoration: none;
   }
 `;
 
@@ -30,7 +36,7 @@ const LogoWrapper = styled.span`
   display: flex;
   align-items: center;
   padding: 0.3rem 0;
-  margin: 0 0.3rem;
+  margin: 0;
   overflow: hidden;
   height: 1.5rem;
   width: ${({ roomForIcon }) => (roomForIcon ? '120px' : '100px')};
@@ -82,15 +88,15 @@ const SVGTransition: TransitionDefinition = {
 };
 
 export const Header = () => {
-  const { asPath } = useRouter();
+  const { pathname } = useRouter();
 
   return (
     <Wrapper>
       <Link href="/" passHref>
         <a>
-          <LogoWrapper roomForIcon={asPath !== '/'}>
+          <LogoWrapper roomForIcon={pathname !== '/'}>
             <AnimatePresence>
-              {asPath !== '/' && (
+              {pathname !== '/' && (
                 <motion.svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"
@@ -122,7 +128,7 @@ export const Header = () => {
                 </motion.svg>
               )}
             </AnimatePresence>
-            <SVGText roomForIcon={asPath !== '/'}>
+            <SVGText roomForIcon={pathname !== '/'}>
               <motion.svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="40px"
@@ -187,6 +193,9 @@ export const Header = () => {
             <Line />
           </LogoWrapper>
         </a>
+      </Link>
+      <Link href="/about" passHref>
+        <a>about</a>
       </Link>
     </Wrapper>
   );

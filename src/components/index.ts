@@ -1,7 +1,12 @@
 export { Card } from './Card';
+export { Figure } from './Figure';
+export { Flex } from './Flex';
 export { GlobalStyles } from './GlobalStyles';
 export { Head } from './Head';
 export { Header } from './Header';
 export { Hero } from './Hero';
+export { Link } from './Link';
+export { MaxWidthWrapper } from './MaxWidthWrapper';
 export { MDX } from './MDX';
-export { Title } from './Title';
+export { SideNote } from './SideNote';
+export { Typography } from './Typography';

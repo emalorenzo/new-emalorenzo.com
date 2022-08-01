@@ -32,19 +32,29 @@ export const Head = ({
     <meta property="og:url" content={ogUrl} />
     <meta property="og:image" content={ogImage} />
     <meta name="robots" content="follow, index" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@emalorenzo_" />
+    <meta name="twitter:title" content="Ema Lorenzo: Creative Developer" />
+    <meta
+      name="twitter:description"
+      content="👋 Hi! I'm Ema, a Frontend Developer in the search for more beauty on the web. Here I share about React, CSS, Three.js and more."
+    />
+    <meta
+      name="twitter:image"
+      content="https://emalorenzo.com/images/og-index.png"
+    />
   </NextHead>
 );
 
 Head.defaultProps = {
   author: 'Emanuel Lorenzo',
   description:
-    'A highly opinionated and complete starter for Next.js projects ready to production. Includes Typescript, Styled Components, Prettier, ESLint, Husky, SEO, and more.',
-  keywords:
-    'next, starter, typescript, styled components, prettier, eslint, husky, seo',
+    "👋 Hi! I'm Ema, a Frontend Developer with infinite curiosity in the search for more beauty on the web. Here I share about React, CSS, Three.js and more.",
+  keywords: 'creative, developer, frontend, tech, art, react',
   ogDescription:
-    'A highly opinionated and complete starter for Next.js projects ready to production. Includes Typescript, Styled Components, Prettier, ESLint, Husky, SEO, and more.',
-  ogImage: 'https://next-starter-ebon.vercel.app/images/og.png',
-  ogTitle: 'Next Starter ⚡️: Ready to production',
-  ogUrl: 'https://next-starter-ebon.vercel.app/',
+    "👋 Hi! I'm Ema, a Frontend Developer with infinite curiosity in the search for more beauty on the web. Here I share about React, CSS, Three.js and more.",
+  ogImage: 'https://emalorenzo.com/images/og-index.png',
+  ogTitle: 'Ema Lorenzo: Creative Developer',
+  ogUrl: 'https://emalorenzo.com/',
   title: 'Ema Lorenzo',
 };
