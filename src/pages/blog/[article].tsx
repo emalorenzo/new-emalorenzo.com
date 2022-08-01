@@ -80,7 +80,7 @@ const TableNavigation = styled.nav`
 // margin-top: 2rem;
 // margin-bottom: 5rem;
 
-const ArticlePage: NextPageWithLayout<> = ({ mdx, metadata }: any) => {
+const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
   const { title, image, subtitle } = metadata;
   return (
     <Wrapper>

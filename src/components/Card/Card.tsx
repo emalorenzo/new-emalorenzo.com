@@ -83,7 +83,15 @@ const Subtitle = styled.h4`
   font-size: ${`${14 / 16}rem`};
 `;
 
-export const Card = ({ slug, image, title, subtitle, summary }) => {
+interface Props {
+  slug: string;
+  image: string;
+  title: string;
+  subtitle?: string;
+  summary: string;
+}
+
+export const Card = ({ slug, image, title, subtitle, summary }: Props) => {
   return (
     <Link href={slug} passHref>
       <Anchor>
@@ -103,4 +111,8 @@ export const Card = ({ slug, image, title, subtitle, summary }) => {
       </Anchor>
     </Link>
   );
+};
+
+Card.defaultProps = {
+  subtitle: '',
 };
