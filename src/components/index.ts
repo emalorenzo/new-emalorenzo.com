@@ -9,4 +9,5 @@ export { Link } from './Link';
 export { MaxWidthWrapper } from './MaxWidthWrapper';
 export { MDX } from './MDX';
 export { SideNote } from './SideNote';
+export { TableOfContents } from './TableOfContents';
 export { Typography } from './Typography';

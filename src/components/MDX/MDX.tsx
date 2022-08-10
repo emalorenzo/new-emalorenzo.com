@@ -2,7 +2,13 @@
 import { MDXRemote } from 'next-mdx-remote';
 import styled from 'styled-components';
 
-import { Figure, Link, SideNote, Typography } from '@/components';
+import {
+  Figure,
+  Link,
+  SideNote,
+  TableOfContents,
+  Typography,
+} from '@/components';
 
 const H1 = styled.h1`
   font-size: 3.5rem;
@@ -37,6 +43,7 @@ export const MDX = ({ source }) => {
         Figure,
         SideNote,
         Link,
+        TableOfContents,
       }}
     />
   );

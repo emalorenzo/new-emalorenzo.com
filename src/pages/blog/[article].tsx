@@ -1,10 +1,16 @@
 /* eslint-disable sort-keys */
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
-import { Head, MaxWidthWrapper, MDX, Typography } from '@/components';
+import {
+  Head,
+  MaxWidthWrapper,
+  MDX,
+  TableOfContents,
+  Typography,
+} from '@/components';
 import { MainLayout } from '@/layouts';
 import { getMDX, listFiles } from '@/lib/cms';
 import type { NextPageWithLayout } from '@/types';
@@ -52,34 +58,6 @@ const Article = styled(motion.article)`
   /* margin: 0 auto; */
 `;
 
-const TableContents = styled.aside`
-  display: none;
-
-  @media (min-width: 967.12px) {
-    display: block;
-    max-width: 250px;
-    margin-left: auto;
-    position: sticky;
-    top: 0;
-  }
-`;
-
-const TableNavigation = styled.nav`
-  display: flex;
-  flex-direction: column;
-  font-size: ${18 / 16}rem;
-  position: sticky;
-  top: calc(var(--header-height) + var(--gap) * 4);
-
-  a {
-    font-size: 0.8em;
-    margin-top: calc(var(--gap) / 3);
-  }
-`;
-
-// margin-top: 2rem;
-// margin-bottom: 5rem;
-
 const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
   const { title, image, subtitle } = metadata;
   return (
@@ -93,15 +71,7 @@ const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
         <Typography.Subtitle className="mb-16">{subtitle}</Typography.Subtitle>
       </MaxWidthWrapper>
       <MaxWidthWrapper className="flex flex-row-reverse relative justify-end">
-        <TableContents>
-          <TableNavigation>
-            <h2 className="uppercase font-bold tracking-widest">Contenido</h2>
-            <a href="asdasda">Quien controla los gráficos</a>
-            <a href="asdasda">Three.js y React Three Fiber</a>
-            <a href="asdasda">Geometrias</a>
-            <a href="asdasda">Materiales</a>
-          </TableNavigation>
-        </TableContents>
+        <TableOfContents />
         <Article
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
