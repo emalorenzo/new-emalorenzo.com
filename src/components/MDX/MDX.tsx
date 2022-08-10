@@ -28,9 +28,9 @@ export const MDX = ({ source }) => {
     <MDXRemote
       {...source}
       components={{
-        h1: ({ children }) => <H1>{children}</H1>,
-        h2: ({ children }) => <H2>{children}</H2>,
-        h3: ({ children }) => <H3>{children}</H3>,
+        h1: H1,
+        h2: H2,
+        h3: H3,
         p: Typography.Paragraph,
         blockquote: Typography.Blockquote,
         a: Link,
