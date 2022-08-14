@@ -8,12 +8,10 @@ const Wrapper = styled.aside`
     display: block;
     max-width: 250px;
     margin-left: auto;
-    position: sticky;
-    top: 0;
   }
 `;
 
-const TableNavigation = styled.ul`
+const Content = styled.ul`
   display: flex;
   flex-direction: column;
   font-size: ${18 / 16}rem;
@@ -47,14 +45,16 @@ export const TableOfContents = () => {
   }, []);
   return (
     <Wrapper>
-      <h2>Contenido</h2>
-      <TableNavigation>
-        {sections.map(({ href, text }) => (
-          <li key={href}>
-            <a href={href}>{text}</a>
-          </li>
-        ))}
-      </TableNavigation>
+      <Content>
+        <h2>Contenido</h2>
+        <ul>
+          {sections.map(({ href, text }) => (
+            <li key={href}>
+              <a href={href}>{text}</a>
+            </li>
+          ))}
+        </ul>
+      </Content>
     </Wrapper>
   );
 };

@@ -1,4 +1,5 @@
 /* eslint-disable sort-keys */
+import { Canvas } from '@react-three/fiber';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import React, { useEffect } from 'react';
@@ -6,6 +7,7 @@ import styled from 'styled-components';
 
 import {
   Head,
+  Like,
   MaxWidthWrapper,
   MDX,
   TableOfContents,
@@ -13,6 +15,7 @@ import {
 } from '@/components';
 import { MainLayout } from '@/layouts';
 import { getMDX, listFiles } from '@/lib/cms';
+import { ArticleScene } from '@/scenes';
 import type { NextPageWithLayout } from '@/types';
 
 const Wrapper = styled.main`
@@ -61,27 +64,42 @@ const Article = styled(motion.article)`
 const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
   const { title, image, subtitle } = metadata;
   return (
-    <Wrapper>
-      <Head />
-      <ImageWrapper>
-        <Image src={image} layout="fill" objectFit="cover" />
-      </ImageWrapper>
-      <MaxWidthWrapper>
-        <Typography.Title className="mt-24">{title}</Typography.Title>
-        <Typography.Subtitle className="mb-16">{subtitle}</Typography.Subtitle>
-      </MaxWidthWrapper>
-      <MaxWidthWrapper className="flex flex-row-reverse relative justify-end">
-        <TableOfContents />
-        <Article
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.7 }}
-          className="prose prose-invert"
-        >
-          <MDX source={mdx} />
-        </Article>
-      </MaxWidthWrapper>
-    </Wrapper>
+    <>
+      <Canvas
+        style={{
+          position: 'absolute',
+          zIndex: 2,
+        }}
+      >
+        <ArticleScene />
+      </Canvas>
+      <Wrapper>
+        <Head />
+        <ImageWrapper>
+          <Image src={image} layout="fill" objectFit="cover" />
+        </ImageWrapper>
+        <MaxWidthWrapper>
+          <Typography.Title className="mt-24">{title}</Typography.Title>
+          <Typography.Subtitle className="mb-16">
+            {subtitle}
+          </Typography.Subtitle>
+        </MaxWidthWrapper>
+        <MaxWidthWrapper className="flex flex-row-reverse relative justify-end">
+          <div className="flex flex-col">
+            <TableOfContents />
+            <Like />
+          </div>
+          <Article
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.7 }}
+            className="prose prose-invert"
+          >
+            <MDX source={mdx} />
+          </Article>
+        </MaxWidthWrapper>
+      </Wrapper>
+    </>
   );
 };
 

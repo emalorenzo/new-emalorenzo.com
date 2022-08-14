@@ -1,5 +1,12 @@
 import '@/styles/global.css';
 
+import {
+  GlobalCanvas,
+  HijackedScrollbar,
+  ScrollScene,
+  useCanvas,
+} from '@14islands/r3f-scroll-rig';
+
 import { GlobalStyles } from '@/components';
 import type { AppPropsWithLayout } from '@/types';
 
