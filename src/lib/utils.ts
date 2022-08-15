@@ -13,3 +13,13 @@ export const groupTags = (tagsList): string[] => {
   }
   return groupedTags;
 };
+
+export const transformRangedValue = (
+  value: number,
+  min: number,
+  max: number,
+  toMin: number,
+  toMax: number
+): number => {
+  return ((toMax - toMin) * (value - min)) / (max - min) + toMin;
+};

@@ -30,6 +30,7 @@
     "framer-motion": "^6.3.4",
     "gray-matter": "^4.0.3",
     "gsap": "^3.10.4",
+    "lamina": "^1.1.23",
     "leva": "^0.9.30",
     "next": "^12.2.5",
     "next-mdx-remote": "^4.0.3",
