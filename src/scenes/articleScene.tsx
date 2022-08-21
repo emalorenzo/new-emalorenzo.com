@@ -1,13 +1,17 @@
-import { Box, Environment } from '@react-three/drei';
+import { View } from '@react-three/drei';
 import { Suspense } from 'react';
 
 import { Heart } from '@/models';
+import { useGlobalStore } from '@/store';
 
 export const ArticleScene = () => {
+  const likeRef = useGlobalStore((s) => s.likeRef);
   return (
     <Suspense fallback={null}>
-      <Environment preset="city" />
-      <Heart />
+      {/* @ts-ignore */}
+      <View track={likeRef}>
+        <Heart scaleFactor={0.0008} maxCount={20} />
+      </View>
     </Suspense>
   );
 };

@@ -2,34 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import type { TransitionDefinition } from 'framer-motion/types/types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import styled from 'styled-components';
-
-const Wrapper = styled.header`
-  position: fixed;
-  z-index: 2;
-  mix-blend-mode: difference;
-  top: 0;
-  padding: 0.7rem 0;
-  font-size: 1rem;
-  font-weight: 300;
-  width: 100%;
-  max-width: var(--max-width);
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: space-between;
-  height: var(--header-height);
-  align-items: center;
-  padding: 0 var(--gap);
-
-  a {
-    color: white;
-    text-decoration: none;
-  }
-`;
 
 const LogoWrapper = styled.span`
   position: relative;
@@ -91,7 +64,7 @@ export const Header = () => {
   const { pathname } = useRouter();
 
   return (
-    <Wrapper>
+    <header className="fixed z-10 top-0 py-3 font-light h-20 flex justify-between left-0 right-0 items-center max-w-center">
       <Link href="/" passHref>
         <a>
           <LogoWrapper roomForIcon={pathname !== '/'}>
@@ -131,7 +104,7 @@ export const Header = () => {
             <SVGText roomForIcon={pathname !== '/'}>
               <motion.svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="40px"
+                width="38px"
                 height="22px"
                 stroke="currentColor"
                 strokeWidth="0.5"
@@ -197,6 +170,6 @@ export const Header = () => {
       <Link href="/about" passHref>
         <a>about</a>
       </Link>
-    </Wrapper>
+    </header>
   );
 };

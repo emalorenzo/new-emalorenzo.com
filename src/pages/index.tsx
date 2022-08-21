@@ -10,23 +10,6 @@ import { getMDX, listFiles } from '@/lib/cms';
 import { groupTags } from '@/lib/utils';
 import type { ArticleMeta, NextPageWithLayout } from '@/types';
 
-const Wrapper = styled.main`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100%;
-  max-width: 1200px;
-  flex: 1;
-  padding-left: var(--gap);
-  padding-right: var(--gap);
-`;
-
-const PostsLayout = styled.section`
-  display: flex;
-  gap: 2rem;
-  position: relative;
-`;
-
 const PostsFilterWrapper = styled(Flex)`
   flex: 1 999 20rem;
   position: sticky;
@@ -51,7 +34,7 @@ const Cards = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: var(--gap);
-  padding-bottom: calc(var(--gap) * 8);
+  padding-bottom: calc(var(--gap) * 80);
 `;
 
 interface Props {
@@ -73,11 +56,11 @@ const HomePage: NextPageWithLayout<Props> = ({ articles, tags }) => {
   }, [filter]);
 
   return (
-    <Wrapper>
+    <main className="flex flex-col items-center max-w-center items-stretch">
       <Head />
       <Hero />
-      <PostsLayout>
-        <PostsFilterWrapper column as="aside">
+      <section className="relative flex">
+        <aside className="absolute left-0 top-0 hidden xl:block">
           <Title>Articulos</Title>
           <ul>
             <li>
@@ -106,14 +89,14 @@ const HomePage: NextPageWithLayout<Props> = ({ articles, tags }) => {
               </li>
             ))}
           </ul>
-        </PostsFilterWrapper>
-        <Cards>
+        </aside>
+        <div className="flex mx-auto pb-[1000px]">
           {filteredArticles.map((card) => (
             <Card key={card.title} {...card} />
           ))}
-        </Cards>
-      </PostsLayout>
-    </Wrapper>
+        </div>
+      </section>
+    </main>
   );
 };
 

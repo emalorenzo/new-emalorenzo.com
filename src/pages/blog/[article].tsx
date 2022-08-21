@@ -1,8 +1,9 @@
 /* eslint-disable sort-keys */
+import { PerspectiveCamera } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -16,6 +17,7 @@ import {
 import { MainLayout } from '@/layouts';
 import { getMDX, listFiles } from '@/lib/cms';
 import { ArticleScene } from '@/scenes';
+import { useGlobalStore } from '@/store';
 import type { NextPageWithLayout } from '@/types';
 
 const Wrapper = styled.main`
@@ -62,17 +64,17 @@ const Article = styled(motion.article)`
 `;
 
 const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
+  const likeRef = useRef(null);
   const { title, image, subtitle } = metadata;
+  const dom = useGlobalStore((s) => s.dom);
+
+  useEffect(() => {
+    if (likeRef.current) {
+      useGlobalStore.setState({ likeRef });
+    }
+  }, [likeRef]);
   return (
     <>
-      <Canvas
-        style={{
-          position: 'absolute',
-          zIndex: 2,
-        }}
-      >
-        <ArticleScene />
-      </Canvas>
       <Wrapper>
         <Head />
         <ImageWrapper>
@@ -85,9 +87,11 @@ const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
           </Typography.Subtitle>
         </MaxWidthWrapper>
         <MaxWidthWrapper className="flex flex-row-reverse relative justify-end">
-          <div className="flex flex-col">
-            <TableOfContents />
-            <Like />
+          <div className="flex flex-col ml-40">
+            <div className="sticky top-16">
+              <TableOfContents />
+              <div ref={likeRef} className="w-32 h-32" />
+            </div>
           </div>
           <Article
             initial={{ opacity: 0 }}
@@ -99,6 +103,13 @@ const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
           </Article>
         </MaxWidthWrapper>
       </Wrapper>
+      <Canvas
+        onCreated={(state) => state.events.connect(dom.current)}
+        className="canvas"
+      >
+        <PerspectiveCamera makeDefault fov={20} far={1000} />
+        <ArticleScene />
+      </Canvas>
     </>
   );
 };

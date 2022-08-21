@@ -14,8 +14,14 @@ import type { GLTFResult } from './types';
 
 extend({ FillMaterial });
 
-export const Heart = (props) => {
-  const ref = useRef<THREE.Group>();
+type Props = {
+  maxCount: number;
+  scaleFactor: number;
+} & JSX.IntrinsicElements['group'];
+
+export const Heart: React.FC<Props> = ({ maxCount, scaleFactor, ...props }) => {
+  const ref = useRef<THREE.Group>(null);
+  const clicks = useRef<number>(0);
   const percentRef = useRef(0);
   const targetPercentRef = useRef(0);
   const fillRef = useRef<FillMaterialType>();
@@ -30,7 +36,7 @@ export const Heart = (props) => {
     }
 
     if (percentRef.current < targetPercentRef.current) {
-      percentRef.current += 0.001;
+      percentRef.current += 0.002;
 
       const filled = transformRangedValue(
         percentRef.current,
@@ -46,47 +52,60 @@ export const Heart = (props) => {
   const handleClick = (e) => {
     e.stopPropagation();
 
-    if (percentRef.current < 1) {
-      targetPercentRef.current += 0.05;
+    clicks.current += 1;
+    const isFull = clicks.current > maxCount;
+
+    if (!isFull) {
+      targetPercentRef.current += 1 / maxCount;
+    }
+
+    let nextRotation;
+    if (isFull) {
+      const moved = ref.current.rotation.y % Math.PI;
+      const remaining = 2 * Math.PI - moved;
+
+      nextRotation = ref.current.rotation.y + remaining;
+    } else {
+      nextRotation = Math.PI * clicks.current;
     }
 
     gsap.to(ref.current.rotation, {
       duration: 1.2,
-      y: ref.current.rotation.y + Math.PI * (percentRef.current < 1 ? 1 : 2),
+      y: Math.PI / 2 + nextRotation,
       repeat: 0,
       ease: 'expo.out',
     });
 
     gsap.to(ref.current.scale, {
       duration: 0.6,
-      y: 0.015 + 0.005,
+      y: scaleFactor + scaleFactor * 0.5,
       ease: 'expo.out',
     });
     gsap.to(ref.current.scale, {
       duration: 0.4,
-      y: 0.015,
+      y: scaleFactor,
       ease: 'back.out',
       delay: 0.6,
     });
     gsap.to(ref.current.scale, {
       duration: 0.6,
-      x: 0.015 + 0.005,
+      x: scaleFactor + scaleFactor * 0.5,
       ease: 'expo.out',
     });
     gsap.to(ref.current.scale, {
       duration: 0.4,
-      x: 0.015,
+      x: scaleFactor,
       ease: 'back.out',
       delay: 0.6,
     });
     gsap.to(ref.current.scale, {
       duration: 0.6,
-      z: 0.015 + 0.005,
+      z: scaleFactor + scaleFactor * 0.5,
       ease: 'expo.out',
     });
     gsap.to(ref.current.scale, {
       duration: 0.4,
-      z: 0.015,
+      z: scaleFactor,
       ease: 'back.out',
       delay: 0.6,
     });
@@ -96,12 +115,13 @@ export const Heart = (props) => {
 
   return (
     <motion.group
-      {...props}
+      // @ts-ignore
       ref={ref}
+      {...props}
       dispose={null}
-      scale={0.015}
+      scale={scaleFactor}
       rotation-y={Math.PI / 2}
-      position={[2.5, 0, 0]}
+      position={[0, 0, -0.2]}
       onClick={handleClick}
     >
       <mesh

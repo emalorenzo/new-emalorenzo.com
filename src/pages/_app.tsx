@@ -1,13 +1,7 @@
 import '@/styles/global.css';
 
-import {
-  GlobalCanvas,
-  HijackedScrollbar,
-  ScrollScene,
-  useCanvas,
-} from '@14islands/r3f-scroll-rig';
-
 import { GlobalStyles } from '@/components';
+import { Dom } from '@/layouts';
 import type { AppPropsWithLayout } from '@/types';
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
@@ -15,8 +9,10 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout || ((page) => page);
   return getLayout(
     <>
-      {/* @ts-ignore */}
-      <Component {...pageProps} />
+      <Dom>
+        {/* @ts-ignore */}
+        <Component {...pageProps} />
+      </Dom>
       <GlobalStyles />
     </>
   );

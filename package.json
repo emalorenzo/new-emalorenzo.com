@@ -21,7 +21,6 @@
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix --cache-location ./node_modules/.cache/.eslintcache"
   },
   "dependencies": {
-    "@14islands/r3f-scroll-rig": "^7.0.7",
     "@next/bundle-analyzer": "^12.1.0",
     "@react-three/drei": "^9.21.0",
     "@react-three/fiber": "^8.3.1",
@@ -43,7 +42,8 @@
     "remark-toc": "^8.0.1",
     "short-uuid": "^4.2.0",
     "styled-components": "^5.3.3",
-    "three": "^0.143.0"
+    "three": "^0.143.0",
+    "zustand": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",
