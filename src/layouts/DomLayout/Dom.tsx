@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
 
-import { useGlobalStore } from '@/store';
+import { useCursorStore, useGlobalStore } from '@/store';
 
 export const Dom = ({ children }) => {
   const dom = useRef(null);
-  const { setCursorPosition } = useGlobalStore.getState();
+  const { setCursorPosition } = useCursorStore.getState();
 
   useEffect(() => {
     useGlobalStore.setState({ dom });

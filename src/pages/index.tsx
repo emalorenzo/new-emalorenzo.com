@@ -90,7 +90,7 @@ const HomePage: NextPageWithLayout<Props> = ({ articles, tags }) => {
             ))}
           </ul>
         </aside>
-        <div className="flex mx-auto pb-[1000px]">
+        <div className="flex flex-col mx-auto pb-[1000px]">
           {filteredArticles.map((card) => (
             <Card key={card.title} {...card} />
           ))}

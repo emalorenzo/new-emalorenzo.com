@@ -3,9 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 
-const Anchor = styled.a`
-  text-decoration: none;
-`;
+import { useCursor } from '@/hooks';
 
 const Wrapper = styled.article`
   height: 280px;
@@ -32,7 +30,7 @@ const ImageWrapper = styled.div`
     transition: filter 0.2s ease-in-out;
     will-change: filter;
 
-    ${Anchor}:hover & {
+    a:hover & {
       filter: saturate(1);
     }
   }
@@ -57,7 +55,7 @@ const Title = styled.h3`
   transition: transform 0.2s ease-in-out;
   will-change: transform;
 
-  ${Anchor}:hover & {
+  a:hover & {
     transform: translateY(-2px);
   }
 `;
@@ -74,7 +72,7 @@ const Line = styled(motion.div)`
   transition: width 0.2s ease-in-out;
   transform: translateY(-4px);
 
-  ${Anchor}:hover & {
+  a:hover & {
     width: 100%;
   }
 `;
@@ -92,13 +90,18 @@ interface Props {
 }
 
 export const Card = ({ slug, image, title, subtitle, summary }: Props) => {
+  const { setCursor } = useCursor();
+
+  const handlePointerEnter = () => {
+    setCursor({ type: 'image', config: { src: image } });
+  };
+  const handlePointerLeave = () => {
+    setCursor({ type: 'default' });
+  };
   return (
     <Link href={slug} passHref>
-      <Anchor>
+      <a onPointerOver={handlePointerEnter} onPointerLeave={handlePointerLeave}>
         <Wrapper>
-          <ImageWrapper>
-            <Image src={image} layout="fill" objectFit="cover" />
-          </ImageWrapper>
           <Content>
             <TitleWrapper>
               <Title>{title}</Title>
@@ -108,7 +111,7 @@ export const Card = ({ slug, image, title, subtitle, summary }: Props) => {
             <Summary className="mt-4">{summary}</Summary>
           </Content>
         </Wrapper>
-      </Anchor>
+      </a>
     </Link>
   );
 };
