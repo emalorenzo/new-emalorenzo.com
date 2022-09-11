@@ -1,0 +1,1 @@
+export { GlobalCanvas } from './GlobalCanvas';

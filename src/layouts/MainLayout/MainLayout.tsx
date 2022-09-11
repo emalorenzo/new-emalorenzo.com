@@ -12,9 +12,18 @@ export const MainLayout = ({ children }) => {
       <Wrapper>
         {children}
         <Footer>
-          <Link href="https://www.linkedin.com/in/emanuellorenzo/" passHref>
-            <a>LinkedIn</a>
-          </Link>
+          <div className="flex flex-col uppercase">
+            <Link href="https://www.linkedin.com/in/emanuellorenzo/" passHref>
+              <a className="mb-2">LinkedIn</a>
+            </Link>
+            <Link href="https://www.linkedin.com/in/emanuellorenzo/" passHref>
+              <a className="mb-2">Instagram</a>
+            </Link>
+            <Link href="https://www.linkedin.com/in/emanuellorenzo/" passHref>
+              <a>Twitter</a>
+            </Link>
+          </div>
+          © 2022 Emanuel Lorenzo —— Buenos Aires
         </Footer>
       </Wrapper>
     </>

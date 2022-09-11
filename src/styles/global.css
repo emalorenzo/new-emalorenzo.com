@@ -13,7 +13,7 @@
   }
 
   .max-w-center {
-    @apply w-full max-w-7xl mx-auto px-4 md:px-8 lg:px-10
+    @apply w-full max-w-7xl 2xl:max-w-screen-2xl mx-auto px-4 md:px-8 lg:px-10
   }
 }
 

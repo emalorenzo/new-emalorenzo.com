@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   background-color: var(--background);
   margin: 0 auto;
+  overflow-y: scroll;
 `;
 
 export const Footer = styled.footer`

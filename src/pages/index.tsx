@@ -56,7 +56,7 @@ const HomePage: NextPageWithLayout<Props> = ({ articles, tags }) => {
   }, [filter]);
 
   return (
-    <main className="flex flex-col items-center max-w-center items-stretch">
+    <main className="flex flex-col max-w-center items-stretch">
       <Head />
       <Hero />
       <section className="relative flex">

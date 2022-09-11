@@ -3,13 +3,37 @@ import { useEffect, useRef } from 'react';
 import { useGlobalStore } from '@/store';
 
 export const Dom = ({ children }) => {
-  const ref = useRef(null);
+  const dom = useRef(null);
+  const { setCursorPosition } = useGlobalStore.getState();
+
   useEffect(() => {
-    useGlobalStore.setState({ dom: ref });
+    useGlobalStore.setState({ dom });
   }, []);
 
+  const handleMouseMove = (e) => {
+    let x;
+    let y;
+
+    if (e.touches) {
+      x = e.touches[0].clientX;
+      y = e.touches[0].clientY;
+    } else {
+      x = e.clientX;
+      y = e.clientY;
+    }
+
+    setCursorPosition({ x, y });
+  };
+
+  console.log('render dom');
+
   return (
-    <div className="relative" ref={ref}>
+    <div
+      ref={dom}
+      onMouseMove={handleMouseMove}
+      onTouchMove={handleMouseMove}
+      className="fixed inset-0 h-full"
+    >
       {children}
     </div>
   );

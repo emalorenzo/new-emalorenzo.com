@@ -75,7 +75,7 @@ const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
   }, [likeRef]);
   return (
     <>
-      <Wrapper>
+      <main className="flex flex-col">
         <Head />
         <ImageWrapper>
           <Image src={image} layout="fill" objectFit="cover" />
@@ -97,12 +97,12 @@ const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.7 }}
-            className="prose prose-invert"
+            className="prose lg:prose-xl 2xl:prose-2xl prose-invert"
           >
             <MDX source={mdx} />
           </Article>
         </MaxWidthWrapper>
-      </Wrapper>
+      </main>
       <Canvas
         onCreated={(state) => state.events.connect(dom.current)}
         className="canvas"

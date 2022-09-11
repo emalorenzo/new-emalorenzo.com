@@ -23,3 +23,12 @@ export const transformRangedValue = (
 ): number => {
   return ((toMax - toMin) * (value - min)) / (max - min) + toMin;
 };
+
+export function DOMtoThreeCoords(domX, domY, viewport) {
+  const normalizedX = domX - window.innerWidth / 2;
+  const normalizedY = domY - window.innerHeight / 2;
+  const x = (viewport.width * normalizedX) / window.innerWidth;
+  const y = -(viewport.height * normalizedY) / window.innerHeight;
+
+  return { x, y };
+}
