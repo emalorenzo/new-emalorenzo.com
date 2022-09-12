@@ -1,4 +1,5 @@
 import { useFrame, useThree } from '@react-three/fiber';
+import gsap from 'gsap';
 import { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import * as THREE from 'three';
 
@@ -44,7 +45,7 @@ export const Blob = () => {
         targetScale.set(viewport.width, viewport.width, 1);
       }
 
-      ref.current.scale.lerp(targetScale, 0.05);
+      ref.current.scale.lerp(targetScale, 0.01);
     }
   });
 
