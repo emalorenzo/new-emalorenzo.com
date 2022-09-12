@@ -67,7 +67,7 @@ export const Cursor = () => {
   });
 
   const renderCursor = {
-    image: () => <CursorImage ref={ref} {...cursor.config} />,
+    image: () => <CursorImage ref={ref} {...(cursor as CursorImage).config} />,
   }[cursor?.type];
 
   return (
