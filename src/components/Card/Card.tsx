@@ -1,18 +1,21 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { useCursor } from '@/hooks';
 
 const Wrapper = styled.article`
-  height: 280px;
+  /* height: 280px; */
   width: 100%;
   max-width: 720px;
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   position: relative;
+  padding: var(--gap);
+  color: var(--color);
 
   @media (max-width: 480px) {
     width: calc(100% + var(--gap) * 2);
@@ -20,30 +23,21 @@ const Wrapper = styled.article`
   }
 `;
 
-const ImageWrapper = styled.div`
-  height: 100%;
-  flex: 4;
-  position: relative;
+// const ImageWrapper = styled.div`
+//   height: 100%;
+//   flex: 4;
+//   position: relative;
 
-  img {
-    filter: saturate(0);
-    transition: filter 0.2s ease-in-out;
-    will-change: filter;
+//   img {
+//     filter: saturate(0);
+//     transition: filter 0.2s ease-in-out;
+//     will-change: filter;
 
-    a:hover & {
-      filter: saturate(1);
-    }
-  }
-`;
-
-const Content = styled.div`
-  flex: 6;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: var(--gap);
-  color: var(--color);
-`;
+//     a:hover & {
+//       filter: saturate(1);
+//     }
+//   }
+// `;
 
 const TitleWrapper = styled.div`
   width: fit-content;
@@ -90,26 +84,48 @@ interface Props {
 }
 
 export const Card = ({ slug, image, title, subtitle, summary }: Props) => {
+  const [hovered, setHovered] = useState(false);
+  const [selected, setSelected] = useState(false);
   const { setCursor } = useCursor();
 
   const handlePointerEnter = () => {
-    setCursor({ type: 'image', config: { src: image } });
+    setHovered(true);
   };
   const handlePointerLeave = () => {
-    setCursor({ type: 'default' });
+    setHovered(false);
   };
+  const handlePointerDown = () => {
+    setCursor({ type: 'image', config: { src: image, useAsHero: true } });
+  };
+
+  useEffect(() => {
+    if (hovered) {
+      setCursor({ type: 'image', config: { src: image } });
+    } else {
+      setCursor({ type: 'default' });
+    }
+  }, [hovered]);
+
+  useEffect(() => {
+    if (selected) {
+      setCursor({ type: 'image', config: { src: image } });
+    }
+  }, [selected]);
   return (
     <Link href={slug} passHref>
-      <a onPointerOver={handlePointerEnter} onPointerLeave={handlePointerLeave}>
+      <a
+        onPointerOver={handlePointerEnter}
+        onPointerLeave={handlePointerLeave}
+        onPointerUp={handlePointerDown}
+        className="mb-4 border border-[#030103] hover:border-stone-900 rounded-lg"
+      >
         <Wrapper>
-          <Content>
-            <TitleWrapper>
-              <Title>{title}</Title>
-              <Line />
-            </TitleWrapper>
-            <Subtitle className="text-pink-800">{subtitle}</Subtitle>
-            <Summary className="mt-4">{summary}</Summary>
-          </Content>
+          <TitleWrapper>
+            <Title>{title}</Title>
+            <Line />
+          </TitleWrapper>
+          <Subtitle className="text-pink-800">{subtitle}</Subtitle>
+          <Summary className="mt-4">{summary}</Summary>
         </Wrapper>
       </a>
     </Link>

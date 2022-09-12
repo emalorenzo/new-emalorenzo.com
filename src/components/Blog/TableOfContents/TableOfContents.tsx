@@ -38,10 +38,18 @@ export const TableOfContents = () => {
 
     setSections(allSections);
 
-    (document.querySelector('h2#contenido+ul') as HTMLElement).style.display =
-      'none';
-    (document.querySelector('h2#contenido') as HTMLElement).style.display =
-      'none';
+    const mdxGeneratedTOCList = document.querySelector(
+      'h2#contenido+ul'
+    ) as HTMLElement;
+    if (mdxGeneratedTOCList) {
+      mdxGeneratedTOCList.remove();
+    }
+    const mdxGeneratedTOC = document.querySelector(
+      'h2#contenido'
+    ) as HTMLElement;
+    if (mdxGeneratedTOC) {
+      mdxGeneratedTOC.remove();
+    }
   }, []);
   return (
     <Wrapper>

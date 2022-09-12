@@ -1,12 +1,15 @@
 import type React from 'react';
 import create from 'zustand';
 
-import type { CursorController } from '@/components3D/Cursor/Cursor';
+import type {
+  CursorController,
+  ICursorPosition,
+} from '@/components3D/Cursor/Cursor';
 
 interface CursorStore {
   cursorPosition: { x: number; y: number };
   cursorControllerRef: React.MutableRefObject<CursorController>;
-  setCursorPosition: ({ x, y }) => void;
+  setCursorPosition: (position: ICursorPosition) => void;
   setCursorController: (ref: React.MutableRefObject<CursorController>) => void;
 }
 

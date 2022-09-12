@@ -32,7 +32,7 @@ export const Dom = ({ children }) => {
       ref={dom}
       onMouseMove={handleMouseMove}
       onTouchMove={handleMouseMove}
-      className="fixed inset-0 h-full"
+      className="dom"
     >
       {children}
     </div>

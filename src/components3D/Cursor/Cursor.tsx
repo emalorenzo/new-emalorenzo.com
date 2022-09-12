@@ -10,9 +10,18 @@ import { CursorImage } from './CursorImage';
 
 const cursorTargetPosition = new THREE.Vector3();
 
-export interface ICursor {
-  type: 'none' | 'image';
+interface CursorDefault {
+  type: 'default';
+}
+interface CursorImage {
+  type: 'image';
   config: ImageProps;
+}
+export type ICursor = CursorDefault | CursorImage;
+
+export interface ICursorPosition {
+  x: number;
+  y: number;
 }
 
 export type CursorController = {
@@ -20,7 +29,6 @@ export type CursorController = {
 };
 
 export const Cursor = () => {
-  console.log('render cursor');
   const ref = useRef<THREE.Group>(null);
   const controllerRef = useRef<CursorController>(null);
   const cursorPosition = useRef(useCursorStore.getState().cursorPosition);
@@ -32,9 +40,7 @@ export const Cursor = () => {
     setCursor: (newCursor) => {
       // TODO: maybe only checking the type is not enough
       // if its the same type but different config it wont update
-      if (newCursor.type !== cursor?.type) {
-        setCursor(newCursor);
-      }
+      setCursor(newCursor);
     },
   }));
 
@@ -61,8 +67,13 @@ export const Cursor = () => {
   });
 
   const renderCursor = {
-    image: () => <CursorImage {...cursor.config} />,
+    image: () => <CursorImage ref={ref} {...cursor.config} />,
   }[cursor?.type];
 
-  return <group ref={ref}>{renderCursor && renderCursor()}</group>;
+  return (
+    <>
+      <group ref={ref} />
+      {renderCursor && renderCursor()}
+    </>
+  );
 };
