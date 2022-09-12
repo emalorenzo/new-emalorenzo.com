@@ -12,5 +12,5 @@ module.exports = withBundleAnalyzer({
   experimental: {
     concurrentFeatures: true,
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
 });

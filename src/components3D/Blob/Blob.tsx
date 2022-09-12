@@ -43,7 +43,14 @@ export const Blob = ({ color }) => {
 
   useImperativeHandle(controllerRef, () => ({
     setBlob: (newBlob) => {
-      setBlob(newBlob);
+      if (
+        !(
+          status === 'full' &&
+          ref.current.scale.x < viewport.getCurrentViewport().width * 0.9
+        )
+      ) {
+        setBlob(newBlob);
+      }
     },
   }));
 
@@ -70,20 +77,20 @@ export const Blob = ({ color }) => {
     }, 500);
   }, [targetColor]);
 
-  useEffect(() => {
-    if (status === 'full') {
-      gsap.to(ref.current.scale, {
-        x: viewport.width,
-        duration: 1,
-        ease: 'power2.out',
-      });
-      gsap.to(ref.current.scale, {
-        y: viewport.width,
-        duration: 1,
-        ease: 'power2.out',
-      });
-    }
-  }, [status]);
+  // useEffect(() => {
+  //   if (status === 'full') {
+  //     gsap.to(ref.current.scale, {
+  //       x: viewport.width,
+  //       duration: 1,
+  //       ease: 'power2.out',
+  //     });
+  //     gsap.to(ref.current.scale, {
+  //       y: viewport.width,
+  //       duration: 1,
+  //       ease: 'power2.out',
+  //     });
+  //   }
+  // }, [status]);
 
   useFrame(({ clock }) => {
     if (ref.current && !isAnimationLocked.current) {
@@ -96,7 +103,15 @@ export const Blob = ({ color }) => {
         );
       }
 
-      ref.current.scale.lerp(targetScale, 0.05);
+      if (status === 'full') {
+        targetScale.set(
+          viewport.getCurrentViewport().width,
+          viewport.getCurrentViewport().width,
+          1
+        );
+      }
+
+      ref.current.scale.lerp(targetScale, status === 'full' ? 0.01 : 0.05);
     }
   });
 

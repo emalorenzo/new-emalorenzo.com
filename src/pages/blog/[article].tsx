@@ -2,7 +2,7 @@
 import { PerspectiveCamera } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+// import Image from 'next/image';
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
@@ -87,9 +87,9 @@ const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
     <>
       <main className="flex flex-col">
         <Head />
-        <ImageWrapper>
+        {/* <ImageWrapper>
           <Image src={image} layout="fill" objectFit="cover" />
-        </ImageWrapper>
+        </ImageWrapper> */}
         <MaxWidthWrapper>
           <Typography.Title className="mt-24">{title}</Typography.Title>
           <Typography.Subtitle className="mb-16">

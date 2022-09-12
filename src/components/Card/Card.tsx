@@ -93,17 +93,22 @@ export const Card = ({
   background,
 }: Props) => {
   const isSelected = useRef(false);
-
   const { setCursor } = useCursor();
   const { setBlob } = useBlob();
 
-  const handlePointerEnter = (e) => {
-    e.stopPropagation();
-    setCursor({ type: 'image', config: { src: image } });
-    setBlob({ status: 'animate', color: background });
+  const handlePointerEnter = () => {
+    if (!isSelected.current) {
+      setBlob({ status: 'animate', color: background });
+      setCursor({ type: 'image', config: { src: image } });
+    }
   };
-
-  const handleClick = () => {
+  const handlePointerLeave = () => {
+    if (!isSelected.current) {
+      setBlob({ status: 'idle' });
+      setCursor({ type: 'default' });
+    }
+  };
+  const handlePointerDown = () => {
     isSelected.current = true;
     setBlob({ status: 'full', color: background });
     setCursor({ type: 'image', config: { src: image, useAsHero: true } });
@@ -113,7 +118,8 @@ export const Card = ({
     <Link href={slug} passHref>
       <a
         onPointerOver={handlePointerEnter}
-        onPointerUp={handleClick}
+        onPointerLeave={handlePointerLeave}
+        onPointerUp={handlePointerDown}
         className="border border-[#030103] hover:border-stone-900 rounded-lg"
       >
         <Wrapper>

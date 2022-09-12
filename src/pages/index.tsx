@@ -49,11 +49,6 @@ const HomePage: NextPageWithLayout<Props> = ({ articles, tags }) => {
   const router = useRouter();
   const { filter } = router.query;
 
-  const handlePointerEnter = () => {
-    setCursor({ type: 'default' });
-    setBlob({ status: 'idle' });
-  };
-
   const filteredArticles = useMemo(() => {
     if (filter) {
       return articles.filter((article) =>
@@ -64,10 +59,7 @@ const HomePage: NextPageWithLayout<Props> = ({ articles, tags }) => {
   }, [filter]);
 
   return (
-    <main
-      className="flex flex-col max-w-center items-stretch"
-      onPointerOver={handlePointerEnter}
-    >
+    <main className="flex flex-col max-w-center items-stretch">
       <Head />
       <Hero />
       <section className="relative flex">
