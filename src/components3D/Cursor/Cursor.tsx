@@ -38,8 +38,6 @@ export const Cursor = () => {
 
   useImperativeHandle(controllerRef, () => ({
     setCursor: (newCursor) => {
-      // TODO: maybe only checking the type is not enough
-      // if its the same type but different config it wont update
       setCursor(newCursor);
     },
   }));

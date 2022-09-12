@@ -14,6 +14,7 @@ import {
   TableOfContents,
   Typography,
 } from '@/components';
+import { useBlob } from '@/hooks';
 import { MainLayout } from '@/layouts';
 import { getMDX, listFiles } from '@/lib/cms';
 import { ArticleScene } from '@/scenes';
@@ -67,12 +68,19 @@ const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
   const likeRef = useRef(null);
   const { title, image, subtitle } = metadata;
   const dom = useGlobalStore((s) => s.dom);
+  const { setBlobStatus } = useBlob();
 
   useEffect(() => {
     if (likeRef.current) {
       useGlobalStore.setState({ likeRef });
     }
   }, [likeRef]);
+
+  useEffect(() => {
+    return () => {
+      setBlobStatus('idle');
+    };
+  }, []);
   return (
     <>
       <main className="flex flex-col">

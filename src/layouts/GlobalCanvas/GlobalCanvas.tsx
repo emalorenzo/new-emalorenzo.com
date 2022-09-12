@@ -2,7 +2,7 @@ import { Environment } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
 
-import { Cursor } from '@/components3D';
+import { Blob, Cursor } from '@/components3D';
 
 const Scene = () => {
   return (
@@ -10,6 +10,7 @@ const Scene = () => {
       <Environment preset="city" />
       <ambientLight />
       <Cursor />
+      <Blob />
     </Suspense>
   );
 };

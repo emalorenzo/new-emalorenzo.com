@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { useCursor } from '@/hooks';
+import { useBlob, useCursor } from '@/hooks';
 
 const Wrapper = styled.article`
   /* height: 280px; */
@@ -84,33 +84,34 @@ interface Props {
 }
 
 export const Card = ({ slug, image, title, subtitle, summary }: Props) => {
+  const isSelected = useRef(false);
   const [hovered, setHovered] = useState(false);
-  const [selected, setSelected] = useState(false);
+
   const { setCursor } = useCursor();
+  const { setBlobStatus } = useBlob();
 
   const handlePointerEnter = () => {
     setHovered(true);
+    setBlobStatus('animate');
   };
   const handlePointerLeave = () => {
     setHovered(false);
+    setBlobStatus('idle');
   };
   const handlePointerDown = () => {
+    isSelected.current = true;
+    setBlobStatus('full');
     setCursor({ type: 'image', config: { src: image, useAsHero: true } });
   };
 
   useEffect(() => {
     if (hovered) {
       setCursor({ type: 'image', config: { src: image } });
-    } else {
+    } else if (!isSelected.current) {
       setCursor({ type: 'default' });
     }
   }, [hovered]);
 
-  useEffect(() => {
-    if (selected) {
-      setCursor({ type: 'image', config: { src: image } });
-    }
-  }, [selected]);
   return (
     <Link href={slug} passHref>
       <a

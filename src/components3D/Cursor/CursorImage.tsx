@@ -30,9 +30,11 @@ export const CursorImage = forwardRef(
     useFrame(() => {
       if (ref.current) {
         if (useAsHero) {
-          ref.current.position.lerp(HERO_POSITION, 0.05);
+          ref.current.position.lerp(HERO_POSITION, 0.02);
         } else {
-          ref.current.position.copy(cursorRef.current.position);
+          const x = cursorRef.current.position.x + previewWidth / 2 + offset;
+          const y = cursorRef.current.position.y + previewHeight / 2 + offset;
+          ref.current.position.set(x, y, 0);
         }
 
         ref.current.scale.lerp(scale, 0.05);
@@ -40,12 +42,9 @@ export const CursorImage = forwardRef(
     });
 
     return (
-      <mesh
-        ref={ref}
-        position={[previewWidth / 2 + offset, previewHeight / 2 + offset, 2]}
-      >
+      <mesh ref={ref}>
         <planeGeometry args={[1, 1, 32, 32]} />
-        <MeshDistortMaterial speed={3} map={texture} />
+        <MeshDistortMaterial speed={2} map={texture} />
       </mesh>
     );
   }
