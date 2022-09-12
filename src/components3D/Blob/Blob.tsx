@@ -90,7 +90,11 @@ export const Blob = ({ color }) => {
   });
 
   return (
-    <mesh ref={ref} position={[viewport.width / 2, -viewport.height / 2, 0]}>
+    <mesh
+      ref={ref}
+      position={[viewport.width / 2, -viewport.height / 2, 0]}
+      scale={0}
+    >
       <circleGeometry args={[viewport.width / 8, 64]} />
       <meshBasicMaterial ref={materialRef} />
     </mesh>
