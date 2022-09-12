@@ -70,6 +70,21 @@ export const Blob = ({ color }) => {
     }, 500);
   }, [targetColor]);
 
+  useEffect(() => {
+    if (status === 'full') {
+      gsap.to(ref.current.scale, {
+        x: viewport.width,
+        duration: 1,
+        ease: 'power2.out',
+      });
+      gsap.to(ref.current.scale, {
+        y: viewport.width,
+        duration: 1,
+        ease: 'power2.out',
+      });
+    }
+  }, [status]);
+
   useFrame(({ clock }) => {
     if (ref.current && !isAnimationLocked.current) {
       if (status === 'idle' || status === 'animate') {
@@ -79,10 +94,6 @@ export const Blob = ({ color }) => {
           amplitude + Math.sin(clock.getElapsedTime()) * 0.1,
           1
         );
-      }
-
-      if (status === 'full') {
-        targetScale.set(viewport.width, viewport.width, 1);
       }
 
       ref.current.scale.lerp(targetScale, 0.05);

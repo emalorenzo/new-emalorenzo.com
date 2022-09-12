@@ -14,7 +14,7 @@ import {
   TableOfContents,
   Typography,
 } from '@/components';
-import { useBlob } from '@/hooks';
+import { useBlob, useCursor } from '@/hooks';
 import { MainLayout } from '@/layouts';
 import { getMDX, listFiles } from '@/lib/cms';
 import { ArticleScene } from '@/scenes';
@@ -69,6 +69,7 @@ const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
   const { title, image, subtitle } = metadata;
   const dom = useGlobalStore((s) => s.dom);
   const { setBlob } = useBlob();
+  const { setCursor } = useCursor();
 
   useEffect(() => {
     if (likeRef.current) {
@@ -79,6 +80,7 @@ const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
   useEffect(() => {
     return () => {
       setBlob({ status: 'idle' });
+      setCursor({ type: 'default' });
     };
   }, []);
   return (
