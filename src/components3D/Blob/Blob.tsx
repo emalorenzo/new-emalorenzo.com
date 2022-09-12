@@ -5,14 +5,14 @@ import * as THREE from 'three';
 
 import { useBlobStore } from '@/store';
 
-export type IBlobStatus = 'idle' | 'animate' | 'full';
+export type IBlobStatus = 'idle' | 'preview' | 'full';
 
 interface StatusIdle {
   status: 'idle';
 }
 
 interface StatusAnimate {
-  status: 'animate';
+  status: 'preview';
   color: string;
 }
 
@@ -94,7 +94,7 @@ export const Blob = ({ color }) => {
 
   useFrame(({ clock }) => {
     if (ref.current && !isAnimationLocked.current) {
-      if (status === 'idle' || status === 'animate') {
+      if (status === 'idle' || status === 'preview') {
         const amplitude = status === 'idle' ? 0.5 : 1;
         targetScale.set(
           amplitude + Math.sin(clock.getElapsedTime()) * 0.1,

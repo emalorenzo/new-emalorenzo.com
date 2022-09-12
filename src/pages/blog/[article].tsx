@@ -3,7 +3,7 @@ import { PerspectiveCamera } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { motion } from 'framer-motion';
 // import Image from 'next/image';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -68,8 +68,8 @@ const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
   const likeRef = useRef(null);
   const { title, image, subtitle } = metadata;
   const dom = useGlobalStore((s) => s.dom);
-  const { setBlob } = useBlob();
-  const { setCursor } = useCursor();
+  // const { setBlob } = useBlob();
+  // const { setCursor } = useCursor();
 
   useEffect(() => {
     if (likeRef.current) {
@@ -77,12 +77,10 @@ const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
     }
   }, [likeRef]);
 
-  useEffect(() => {
-    return () => {
-      setBlob({ status: 'idle' });
-      setCursor({ type: 'default' });
-    };
-  }, []);
+  useLayoutEffect(() => {
+    // setInitialBlob('full');
+  });
+
   return (
     <>
       <main className="flex flex-col">

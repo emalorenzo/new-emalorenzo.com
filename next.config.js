@@ -13,4 +13,12 @@ module.exports = withBundleAnalyzer({
     concurrentFeatures: true,
   },
   reactStrictMode: false,
+  async rewrites() {
+    return [
+      {
+        source: '/blog',
+        destination: 'https://blog.emalorenzo.com',
+      },
+    ];
+  },
 });

@@ -98,7 +98,7 @@ export const Card = ({
 
   const handlePointerEnter = () => {
     if (!isSelected.current) {
-      setBlob({ status: 'animate', color: background });
+      setBlob({ status: 'preview', color: background });
       setCursor({ type: 'image', config: { src: image } });
     }
   };

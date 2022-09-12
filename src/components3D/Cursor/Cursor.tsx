@@ -18,6 +18,7 @@ interface CursorImage {
   type: 'image';
   config: ImageProps;
 }
+
 export type ICursor = CursorDefault | CursorImage;
 
 export interface ICursorPosition {
