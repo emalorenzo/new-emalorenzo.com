@@ -17,4 +17,5 @@ export interface ArticleMeta {
   image: string;
   tags: string[];
   slug: string;
+  background: string;
 }

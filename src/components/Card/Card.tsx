@@ -81,44 +81,40 @@ interface Props {
   title: string;
   subtitle?: string;
   summary: string;
+  background: string;
 }
 
-export const Card = ({ slug, image, title, subtitle, summary }: Props) => {
+export const Card = ({
+  slug,
+  image,
+  title,
+  subtitle,
+  summary,
+  background,
+}: Props) => {
   const isSelected = useRef(false);
-  const [hovered, setHovered] = useState(false);
 
   const { setCursor } = useCursor();
-  const { setBlobStatus } = useBlob();
+  const { setBlob } = useBlob();
 
-  const handlePointerEnter = () => {
-    setHovered(true);
-    setBlobStatus('animate');
+  const handlePointerEnter = (e) => {
+    e.stopPropagation();
+    setCursor({ type: 'image', config: { src: image } });
+    setBlob({ status: 'animate', color: background });
   };
-  const handlePointerLeave = () => {
-    setHovered(false);
-    setBlobStatus('idle');
-  };
-  const handlePointerDown = () => {
+
+  const handleClick = () => {
     isSelected.current = true;
-    setBlobStatus('full');
+    setBlob({ status: 'full', color: background });
     setCursor({ type: 'image', config: { src: image, useAsHero: true } });
   };
-
-  useEffect(() => {
-    if (hovered) {
-      setCursor({ type: 'image', config: { src: image } });
-    } else if (!isSelected.current) {
-      setCursor({ type: 'default' });
-    }
-  }, [hovered]);
 
   return (
     <Link href={slug} passHref>
       <a
         onPointerOver={handlePointerEnter}
-        onPointerLeave={handlePointerLeave}
-        onPointerUp={handlePointerDown}
-        className="mb-4 border border-[#030103] hover:border-stone-900 rounded-lg"
+        onPointerUp={handleClick}
+        className="border border-[#030103] hover:border-stone-900 rounded-lg"
       >
         <Wrapper>
           <TitleWrapper>

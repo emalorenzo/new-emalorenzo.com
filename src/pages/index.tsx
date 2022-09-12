@@ -5,6 +5,7 @@ import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
 import { Card, Flex, Head, Hero } from '@/components';
+import { useBlob, useCursor } from '@/hooks';
 import { MainLayout } from '@/layouts';
 import { getMDX, listFiles } from '@/lib/cms';
 import { groupTags } from '@/lib/utils';
@@ -43,8 +44,15 @@ interface Props {
 }
 
 const HomePage: NextPageWithLayout<Props> = ({ articles, tags }) => {
+  const { setCursor } = useCursor();
+  const { setBlob } = useBlob();
   const router = useRouter();
   const { filter } = router.query;
+
+  const handlePointerEnter = () => {
+    setCursor({ type: 'default' });
+    setBlob({ status: 'idle' });
+  };
 
   const filteredArticles = useMemo(() => {
     if (filter) {
@@ -56,7 +64,10 @@ const HomePage: NextPageWithLayout<Props> = ({ articles, tags }) => {
   }, [filter]);
 
   return (
-    <main className="flex flex-col max-w-center items-stretch">
+    <main
+      className="flex flex-col max-w-center items-stretch"
+      onPointerOver={handlePointerEnter}
+    >
       <Head />
       <Hero />
       <section className="relative flex">

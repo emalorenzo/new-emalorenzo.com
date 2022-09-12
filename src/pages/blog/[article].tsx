@@ -68,7 +68,7 @@ const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
   const likeRef = useRef(null);
   const { title, image, subtitle } = metadata;
   const dom = useGlobalStore((s) => s.dom);
-  const { setBlobStatus } = useBlob();
+  const { setBlob } = useBlob();
 
   useEffect(() => {
     if (likeRef.current) {
@@ -78,7 +78,7 @@ const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
 
   useEffect(() => {
     return () => {
-      setBlobStatus('idle');
+      setBlob({ status: 'idle' });
     };
   }, []);
   return (

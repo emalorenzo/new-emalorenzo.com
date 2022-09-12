@@ -1,4 +1,4 @@
-import type { IBlobStatus } from '@/components3D/Blob/Blob';
+import type { IBlob } from '@/components3D/Blob/Blob';
 import { useBlobStore } from '@/store';
 
 /**
@@ -7,11 +7,11 @@ import { useBlobStore } from '@/store';
 export const useBlob = () => {
   const blobController = useBlobStore((s) => s.blobControllerRef);
 
-  const setBlobStatus = (newStatus: IBlobStatus) => {
-    blobController?.current?.setBlobStatus(newStatus);
+  const setBlob = (newBlob: IBlob) => {
+    blobController?.current?.setBlob(newBlob);
   };
 
   return {
-    setBlobStatus,
+    setBlob,
   };
 };

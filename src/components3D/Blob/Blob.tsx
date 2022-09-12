@@ -7,22 +7,43 @@ import { useBlobStore } from '@/store';
 
 export type IBlobStatus = 'idle' | 'animate' | 'full';
 
+interface StatusIdle {
+  status: 'idle';
+}
+
+interface StatusAnimate {
+  status: 'animate';
+  color: string;
+}
+
+interface StatusFull {
+  status: 'full';
+  color: string;
+}
+
+export type IBlob = StatusIdle | StatusAnimate | StatusFull;
+
 export type BlobController = {
-  setBlobStatus: (status: IBlobStatus) => void;
+  setBlob: (blob: IBlob) => void;
 };
 
 const targetScale = new THREE.Vector3();
 
-export const Blob = () => {
-  const [status, setStatus] = useState<IBlobStatus>('idle');
+export const Blob = ({ color }) => {
   const ref = useRef<THREE.Mesh>(null);
+  const materialRef = useRef<THREE.MeshBasicMaterial>(null);
   const controllerRef = useRef<BlobController>(null);
+  const isAnimationLocked = useRef(false);
   const { setBlobController } = useBlobStore.getState();
   const { viewport } = useThree();
 
+  const [blob, setBlob] = useState<IBlob>({ status: 'idle' });
+  const { status } = blob;
+  const targetColor = status === 'idle' ? color : blob.color;
+
   useImperativeHandle(controllerRef, () => ({
-    setBlobStatus: (newStatus) => {
-      setStatus(newStatus);
+    setBlob: (newBlob) => {
+      setBlob(newBlob);
     },
   }));
 
@@ -30,8 +51,27 @@ export const Blob = () => {
     setBlobController(controllerRef);
   }, []);
 
+  useEffect(() => {
+    isAnimationLocked.current = true;
+    gsap.to(ref.current.scale, {
+      x: 0,
+      duration: 0.5,
+      ease: 'power2.out',
+    });
+    gsap.to(ref.current.scale, {
+      y: 0,
+      duration: 0.5,
+      ease: 'power2.out',
+    });
+
+    window.setTimeout(() => {
+      isAnimationLocked.current = false;
+      materialRef.current.color.set(targetColor);
+    }, 500);
+  }, [targetColor]);
+
   useFrame(({ clock }) => {
-    if (ref.current) {
+    if (ref.current && !isAnimationLocked.current) {
       if (status === 'idle' || status === 'animate') {
         const amplitude = status === 'idle' ? 0.5 : 1;
         targetScale.set(
@@ -45,13 +85,18 @@ export const Blob = () => {
         targetScale.set(viewport.width, viewport.width, 1);
       }
 
-      ref.current.scale.lerp(targetScale, 0.01);
+      ref.current.scale.lerp(targetScale, 0.05);
     }
   });
 
   return (
     <mesh ref={ref} position={[viewport.width / 2, -viewport.height / 2, 0]}>
       <circleGeometry args={[viewport.width / 8, 64]} />
+      <meshBasicMaterial ref={materialRef} />
     </mesh>
   );
+};
+
+Blob.defaultProps = {
+  color: '#212121',
 };
