@@ -1,5 +1,4 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import type { TransitionDefinition } from 'framer-motion/types/types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
@@ -55,7 +54,7 @@ const Line = styled(motion.div)`
   }
 `;
 
-const SVGTransition: TransitionDefinition = {
+const SVGTransition: any = {
   duration: 3,
   repeat: false,
 };
