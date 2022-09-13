@@ -123,7 +123,7 @@ export const getStaticProps = async () => {
   // use filename as slug
   const getSlug = (file) => {
     const fileName = file.replace('.mdx', '');
-    return `/blog/${fileName}`;
+    return `/${fileName}`;
   };
 
   const tags = groupTags(articles);

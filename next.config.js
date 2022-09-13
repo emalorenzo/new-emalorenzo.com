@@ -14,11 +14,17 @@ module.exports = withBundleAnalyzer({
   },
   reactStrictMode: false,
   async rewrites() {
-    return [
-      {
-        source: '/blog',
-        destination: 'https://blog.emalorenzo.com',
-      },
-    ];
+    return {
+      fallback: [
+        {
+          source: '/blog',
+          destination: 'https://blog.emalorenzo.com',
+        },
+        {
+          source: '/blog/:slug',
+          destination: 'https://blog.emalorenzo.com/:slug',
+        },
+      ],
+    };
   },
 });
