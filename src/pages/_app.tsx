@@ -12,7 +12,7 @@ const TransitionManager = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(router);
+    // TODO: add transition manager
   }, [router.asPath]);
   return null;
 };
