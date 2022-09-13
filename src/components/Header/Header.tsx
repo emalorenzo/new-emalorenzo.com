@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
 const LogoWrapper = styled.span`
@@ -60,11 +61,20 @@ const SVGTransition: any = {
 };
 
 export const Header = () => {
-  const { pathname } = useRouter();
+  const router = useRouter();
+  const { pathname } = router;
+  useEffect(() => {
+    const hostname = window.location.hostname.split('.');
+    const subdomain = hostname.length >= 2 ? hostname[0] : null;
+  }, [pathname]);
 
+  const homeURL =
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000/'
+      : 'https://emalorenzo.com/';
   return (
     <header className="fixed z-10 top-0 py-3 font-light h-20 flex justify-between left-0 right-0 items-center max-w-center">
-      <Link href="/" passHref>
+      <Link href={homeURL} passHref>
         <a>
           <LogoWrapper roomForIcon={pathname !== '/'}>
             <AnimatePresence>
