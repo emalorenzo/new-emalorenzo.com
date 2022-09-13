@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const LogoWrapper = styled.span`
@@ -12,7 +12,7 @@ const LogoWrapper = styled.span`
   margin: 0;
   overflow: hidden;
   height: 1.5rem;
-  width: ${({ roomForIcon }) => (roomForIcon ? '120px' : '100px')};
+  /* width: ${({ roomForIcon }) => (roomForIcon ? '120px' : '100px')}; */
   transition: width 0.5s ease-in-out;
   transition-delay: ${({ roomForIcon }) => (roomForIcon ? '0s' : '0.7s')};
   user-select: none;
@@ -61,11 +61,17 @@ const SVGTransition: any = {
 };
 
 export const Header = () => {
+  const [section, setSection] = useState(null);
   const router = useRouter();
-  const { pathname } = router;
+  const { pathname, asPath } = router;
+
   useEffect(() => {
     const hostname = window.location.hostname.split('.');
     const subdomain = hostname.length >= 2 ? hostname[0] : null;
+
+    if (subdomain) {
+      setSection(subdomain);
+    }
   }, [pathname]);
 
   const homeURL =
@@ -110,7 +116,9 @@ export const Header = () => {
                 </motion.svg>
               )}
             </AnimatePresence>
-            <SVGText roomForIcon={pathname !== '/'}>
+            {section && section}
+            {asPath !== '/' && asPath}
+            {/* <SVGText roomForIcon={pathname !== '/'}>
               <motion.svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="38px"
@@ -171,7 +179,7 @@ export const Header = () => {
                   lorenzo
                 </motion.text>
               </motion.svg>
-            </SVGText>
+            </SVGText> */}
             <Line />
           </LogoWrapper>
         </a>

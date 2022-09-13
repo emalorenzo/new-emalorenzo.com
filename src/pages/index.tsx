@@ -63,46 +63,19 @@ const HomePage: NextPageWithLayout<Props> = ({ articles, tags }) => {
     setCursor({ type: 'default' });
   }, []);
 
+  const blogURL =
+    process.env.NODE_ENV === 'development'
+      ? 'http://blog.localhost:3000/'
+      : 'https://blog.emalorenzo.com/';
+
   return (
     <main className="flex flex-col max-w-center items-stretch">
       <Head />
       <Hero />
       <section className="relative flex">
-        <aside className="absolute left-0 top-0 hidden xl:block">
-          <Title>Articulos</Title>
-          <ul>
-            <li>
-              <Link
-                passHref
-                href={{
-                  pathname: '/',
-                }}
-              >
-                <PostFilter selected={!filter}>All</PostFilter>
-              </Link>
-            </li>
-            {tags.map((tag) => (
-              <li key={tag}>
-                <Link
-                  passHref
-                  href={{
-                    pathname: '/',
-                    query: { filter: tag.toLowerCase() },
-                  }}
-                >
-                  <PostFilter selected={filter === tag.toLowerCase()}>
-                    {tag}
-                  </PostFilter>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </aside>
-        <div className="flex flex-col mx-auto pb-[1000px]">
-          {filteredArticles.map((card) => (
-            <Card key={card.title} {...card} />
-          ))}
-        </div>
+        <Link passHref href={blogURL}>
+          <a>Go to blog</a>
+        </Link>
       </section>
     </main>
   );
