@@ -83,7 +83,12 @@ const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
 
   return (
     <>
-      <main className="flex flex-col relative top-[100vh] z-10 bg-black">
+      <motion.main
+        className="flex flex-col relative z-10 bg-black"
+        initial={{ y: '100vh' }}
+        animate={{ y: '70vh' }}
+        transition={{ duration: 1 }}
+      >
         <Head />
         {/* <ImageWrapper>
           <Image src={image} layout="fill" objectFit="cover" />
@@ -110,7 +115,7 @@ const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
             <MDX source={mdx} />
           </Article>
         </MaxWidthWrapper>
-      </main>
+      </motion.main>
       <Canvas
         onCreated={(state) => state.events.connect(dom.current)}
         className="canvas"
