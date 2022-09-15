@@ -30,7 +30,7 @@ export const Dom = ({ children }) => {
       ref={dom}
       onMouseMove={handleMouseMove}
       onTouchMove={handleMouseMove}
-      className="dom h-full"
+      className="dom min-h-full flex"
     >
       {children}
     </div>

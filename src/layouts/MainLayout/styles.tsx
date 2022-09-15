@@ -7,7 +7,8 @@ export const Wrapper = styled.div`
   flex-direction: column;
   background-color: var(--background);
   margin: 0 auto;
-  height: 100%;
+  min-height: 100%;
+  flex: 1;
 `;
 
 export const LinkButton = styled.a`
