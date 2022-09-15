@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 
-import { Card, Flex, Head, Hero } from '@/components';
+import { Card, Flex, Head } from '@/components';
 import { useBlob, useCursor } from '@/hooks';
 import { MainLayout } from '@/layouts';
 import { getMDX, listFiles } from '@/lib/cms';
@@ -30,20 +30,18 @@ const Title = styled.h2`
   font-weight: 400;
 `;
 
-const Cards = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--gap);
-  padding-bottom: calc(var(--gap) * 80);
-`;
-
 interface Props {
   articles: ArticleMeta[];
   tags: string[];
 }
 
-const HomePage: NextPageWithLayout<Props> = ({ articles, tags }) => {
+const Hero = () => (
+  <section className="w-full p-8 flex justify-center items-center h-[40vh]">
+    Algun efecto copado
+  </section>
+);
+
+const BlogPage: NextPageWithLayout<Props> = ({ articles, tags }) => {
   const { setCursor } = useCursor();
   const { setBlob } = useBlob();
   const router = useRouter();
@@ -64,7 +62,7 @@ const HomePage: NextPageWithLayout<Props> = ({ articles, tags }) => {
   }, []);
 
   return (
-    <main className="flex flex-col max-w-center items-stretch">
+    <main className="flex flex-col max-w-center items-stretch h-full">
       <Head />
       <Hero />
       <section className="relative flex">
@@ -98,7 +96,7 @@ const HomePage: NextPageWithLayout<Props> = ({ articles, tags }) => {
             ))}
           </ul>
         </aside>
-        <div className="flex flex-col mx-auto pb-[1000px]">
+        <div className="flex flex-col mx-auto">
           {filteredArticles.map((card) => (
             <Card key={card.title} {...card} />
           ))}
@@ -108,7 +106,7 @@ const HomePage: NextPageWithLayout<Props> = ({ articles, tags }) => {
   );
 };
 
-HomePage.getLayout = function getLayout(page) {
+BlogPage.getLayout = function getLayout(page) {
   return <MainLayout>{page}</MainLayout>;
 };
 
@@ -123,7 +121,7 @@ export const getStaticProps = async () => {
   // use filename as slug
   const getSlug = (file) => {
     const fileName = file.replace('.mdx', '');
-    return `/${fileName}`;
+    return `/blog/${fileName}`;
   };
 
   const tags = groupTags(articles);
@@ -142,4 +140,4 @@ export const getStaticProps = async () => {
   };
 };
 
-export default HomePage;
+export default BlogPage;

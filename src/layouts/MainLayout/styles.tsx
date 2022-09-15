@@ -7,16 +7,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   background-color: var(--background);
   margin: 0 auto;
-  overflow-y: scroll;
-`;
-
-export const Footer = styled.footer`
-  background-color: var(--background);
-  border-top: 1px solid #fff;
-  color: var(--color);
-  padding: 2rem;
-  display: flex;
-  justify-content: flex-end;
+  height: 100%;
 `;
 
 export const LinkButton = styled.a`

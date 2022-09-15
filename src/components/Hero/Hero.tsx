@@ -1,19 +1,15 @@
 import { motion } from 'framer-motion';
-import styled from 'styled-components';
-
-const Wrapper = styled.section`
-  min-height: 40vh;
-  display: grid;
-  place-items: center;
-`;
+import Link from 'next/link';
 
 export const Hero = () => {
   return (
-    <Wrapper>
+    <section className="h-full flex flex-col justify-center items-center">
       <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-        In the search for more beauty on the web.Here I share about React, CSS,
-        Three.js and more.
+        This will be a cool showcase of my work. Someday.
       </motion.p>
-    </Wrapper>
+      <Link passHref href="/blog">
+        <a className="mt-4">Go to blog</a>
+      </Link>
+    </section>
   );
 };

@@ -60,6 +60,38 @@ const SVGTransition: any = {
   repeat: false,
 };
 
+const HomeIcon = () => (
+  <motion.svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    initial={{ y: '120%' }}
+    animate={{ y: '0%' }}
+    exit={{ y: '150%' }}
+    transition={{ duration: 0.5 }}
+  >
+    <motion.path
+      d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+      initial={{ pathLength: 0 }}
+      animate={{ pathLength: 1 }}
+      transition={SVGTransition}
+    />
+    <Door
+      points="9 22 9 12 15 12 15 22"
+      initial={{ pathLength: 0 }}
+      animate={{ pathLength: 1 }}
+      transition={SVGTransition}
+      fill="white"
+    />
+  </motion.svg>
+);
+
 export const Header = () => {
   const [section, setSection] = useState(null);
   const router = useRouter();
@@ -74,116 +106,46 @@ export const Header = () => {
     }
   }, [pathname]);
 
-  const homeURL =
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000/'
-      : 'https://emalorenzo.com/';
+  const urlsChunks = pathname !== '/' ? asPath.split('/') : [''];
+
+  const urls = urlsChunks.map((chunk, index) => {
+    const url = urlsChunks.slice(0, index + 1).join('/');
+    return {
+      url: url || '/',
+      name: chunk || 'emalorenzo.com',
+    };
+  });
+  console.log(urls);
+
   return (
     <header className="fixed z-10 top-0 py-3 font-light h-20 flex justify-between left-0 right-0 items-center max-w-center">
-      <Link href={homeURL} passHref>
-        <a>
-          <LogoWrapper roomForIcon={pathname !== '/'}>
-            <AnimatePresence>
-              {pathname !== '/' && (
-                <motion.svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  initial={{ y: '120%' }}
-                  animate={{ y: '0%' }}
-                  exit={{ y: '150%' }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <motion.path
-                    d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={SVGTransition}
-                  />
-                  <Door
-                    points="9 22 9 12 15 12 15 22"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={SVGTransition}
-                    fill="white"
-                  />
-                </motion.svg>
-              )}
-            </AnimatePresence>
-            {section && section}
-            {asPath !== '/' && asPath}
-            {/* <SVGText roomForIcon={pathname !== '/'}>
-              <motion.svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="38px"
-                height="22px"
-                stroke="currentColor"
-                strokeWidth="0.5"
-                fill="white"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                initial={{
-                  fillOpacity: 0,
-                }}
-                animate={{ fill: 'white', fillOpacity: 1 }}
-                transition={{ delay: 1.7, duration: 1 }}
+      <LogoWrapper roomForIcon={pathname !== '/'}>
+        <AnimatePresence>
+          {urls.map(({ url, name }, index) =>
+            index === urls.length - 1 ? (
+              <span
+                className="before:content-['/'] before:ml-2 before:mr-2"
+                key={url}
               >
-                <motion.text
-                  x="53%"
-                  y="66%"
-                  dominantBaseline="middle"
-                  textAnchor="middle"
-                  initial={{
-                    strokeDasharray: 160,
-                    strokeDashoffset: 160,
-                  }}
-                  animate={{ strokeDashoffset: 0 }}
-                  transition={SVGTransition}
-                >
-                  ema
-                </motion.text>
-              </motion.svg>
-              <motion.svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="61"
-                height="22px"
-                stroke="currentColor"
-                strokeWidth="0.5"
-                fill="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                initial={{
-                  fillOpacity: 0,
-                }}
-                animate={{ fill: 'currentColor', fillOpacity: 1 }}
-                transition={{ delay: 1.7, duration: 1 }}
-              >
-                <motion.text
-                  x="47%"
-                  y="66%"
-                  dominantBaseline="middle"
-                  textAnchor="middle"
-                  initial={{
-                    strokeDasharray: 160,
-                    strokeDashoffset: 160,
-                  }}
-                  animate={{ strokeDashoffset: 0 }}
-                  transition={SVGTransition}
-                >
-                  lorenzo
-                </motion.text>
-              </motion.svg>
-            </SVGText> */}
-            <Line />
-          </LogoWrapper>
-        </a>
-      </Link>
+                {name}
+              </span>
+            ) : (
+              <Link href={url} passHref key={url}>
+                {name === 'emalorenzo.com' ? (
+                  <a>
+                    <HomeIcon />
+                  </a>
+                ) : (
+                  <a className="before:content-['/'] before:ml-2 before:mr-2">
+                    {name}
+                  </a>
+                )}
+              </Link>
+            )
+          )}
+          <Line />
+        </AnimatePresence>
+      </LogoWrapper>
       <Link href="/about" passHref>
         <a>about</a>
       </Link>

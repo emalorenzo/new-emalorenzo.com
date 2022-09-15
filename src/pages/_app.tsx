@@ -20,7 +20,7 @@ const TransitionManager = () => {
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
-  console.log('render app');
+  console.log(Component.name);
   return (
     <>
       <Dom>
@@ -32,6 +32,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
+              className="h-full"
             >
               {/* @ts-ignore */}
               <Component {...pageProps} />

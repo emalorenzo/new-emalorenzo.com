@@ -25,14 +25,12 @@ export const Dom = ({ children }) => {
     setCursorPosition({ x, y });
   };
 
-  console.log('render dom');
-
   return (
     <div
       ref={dom}
       onMouseMove={handleMouseMove}
       onTouchMove={handleMouseMove}
-      className="dom"
+      className="dom h-full"
     >
       {children}
     </div>

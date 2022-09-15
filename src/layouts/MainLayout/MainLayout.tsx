@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Header } from '@/components';
 
-import { Footer, LinkButton, Wrapper } from './styles';
+import { Wrapper } from './styles';
 
 export const MainLayout = ({ children }) => {
   return (
@@ -11,20 +11,22 @@ export const MainLayout = ({ children }) => {
       <Header />
       <Wrapper>
         {children}
-        <Footer>
-          <div className="flex flex-col uppercase">
+        <footer className="border-t p-8 flex justify-between max-w-center">
+          <div className="flex flex-row uppercase">
             <Link href="https://www.linkedin.com/in/emanuellorenzo/" passHref>
-              <a className="mb-2">LinkedIn</a>
+              <a className="mb-2 mr-4">LinkedIn</a>
             </Link>
             <Link href="https://www.linkedin.com/in/emanuellorenzo/" passHref>
-              <a className="mb-2">Instagram</a>
+              <a className="mb-2 mr-4">Instagram</a>
             </Link>
             <Link href="https://www.linkedin.com/in/emanuellorenzo/" passHref>
               <a>Twitter</a>
             </Link>
           </div>
-          © 2022 Emanuel Lorenzo —— Buenos Aires
-        </Footer>
+          <span className="min-w-fit">
+            © 2022 Emanuel Lorenzo —— Buenos Aires
+          </span>
+        </footer>
       </Wrapper>
     </>
   );

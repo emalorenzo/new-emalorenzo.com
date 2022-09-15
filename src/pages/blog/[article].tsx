@@ -129,7 +129,7 @@ ArticlePage.getLayout = function getLayout(page) {
 export const getStaticPaths = async () => {
   // get all articles files names
   const files = await listFiles('blog');
-  const paths = files.map((file) => `/${file.replace('.mdx', '')}`);
+  const paths = files.map((file) => `/blog/${file.replace('.mdx', '')}`);
 
   return { paths, fallback: false };
 };
