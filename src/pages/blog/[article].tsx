@@ -83,7 +83,7 @@ const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
 
   return (
     <>
-      <main className="flex flex-col">
+      <main className="flex flex-col relative top-[100vh] z-10 bg-black">
         <Head />
         {/* <ImageWrapper>
           <Image src={image} layout="fill" objectFit="cover" />

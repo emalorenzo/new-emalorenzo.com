@@ -146,7 +146,7 @@ export const Header = () => {
   console.log(urls);
 
   return (
-    <header className="fixed z-10 top-0 py-3 font-light h-20 flex justify-between left-0 right-0 items-center max-w-center">
+    <header className="fixed z-20 top-0 py-3 font-light h-20 flex justify-between left-0 right-0 items-center max-w-center">
       <LogoWrapper roomForIcon={pathname !== '/'}>
         <AnimatePresence mode="wait">
           {/* Home url */}
