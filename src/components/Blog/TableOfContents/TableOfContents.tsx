@@ -42,13 +42,13 @@ export const TableOfContents = () => {
       'h2#contenido+ul'
     ) as HTMLElement;
     if (mdxGeneratedTOCList) {
-      mdxGeneratedTOCList.remove();
+      // mdxGeneratedTOCList.remove();
     }
     const mdxGeneratedTOC = document.querySelector(
       'h2#contenido'
     ) as HTMLElement;
     if (mdxGeneratedTOC) {
-      mdxGeneratedTOC.remove();
+      // mdxGeneratedTOC.remove();
     }
   }, []);
   return (
