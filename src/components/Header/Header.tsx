@@ -109,11 +109,10 @@ export const Header = () => {
   const urlsChunks = pathname !== '/' ? asPath.split('/') : [''];
 
   const urls = urlsChunks.map((chunk, index) => {
-    const url = urlsChunks.slice(0, index + 1).join('/');
-    return {
-      url: url || '/',
-      name: chunk || 'emalorenzo.com',
-    };
+    const url = urlsChunks.slice(0, index + 1).join('/') || '/';
+    const name = chunk ? chunk.split('-').join(' ') : 'emalorenzo.com';
+
+    return { url, name };
   });
   console.log(urls);
 
@@ -124,7 +123,7 @@ export const Header = () => {
           {urls.map(({ url, name }, index) =>
             index === urls.length - 1 ? (
               <span
-                className="before:content-['/'] before:ml-2 before:mr-2"
+                className="before:content-['/'] before:ml-2 before:mr-2 before:font-normal font-bold"
                 key={url}
               >
                 {name}
