@@ -46,12 +46,21 @@ export type TransitionController = {
   getTransition: () => ITransition;
 };
 
+const RenderTransition = ({ transition }) => {
+  if (transition?.type === 'cursor-image') {
+    return (
+      <CursorImageTransition src={(transition as CursorImageTransition).src} />
+    );
+  }
+  return null;
+};
+
 export const TransitionManager = () => {
   const controllerRef = useRef<TransitionController>(null);
   const { pathname } = useGlobalStore((s) => s.router);
   const { setTransitionController } = useTransitionStore.getState();
 
-  const [transition, setTransition] = useState<ITransition>(null);
+  const [transition, setTransition] = useState<ITransition | null>(null);
 
   const { setBlob } = useBlob();
 
@@ -82,11 +91,5 @@ export const TransitionManager = () => {
     }
   }, [transition]);
 
-  const renderTransition = {
-    'cursor-image': () => (
-      <CursorImageTransition src={(transition as CursorImageTransition).src} />
-    ),
-  }[transition?.type];
-
-  return renderTransition && renderTransition();
+  return <RenderTransition transition={transition} />;
 };

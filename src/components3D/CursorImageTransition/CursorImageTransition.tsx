@@ -1,5 +1,6 @@
 import { MeshDistortMaterial, useTexture } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
+import { motion } from 'framer-motion-3d';
 import gsap from 'gsap';
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
@@ -35,6 +36,7 @@ export const CursorImageTransition = ({
   console.log('ImageTransition render');
 
   const ref = useRef<THREE.Mesh>(null);
+  const cursorInitialRef = useRef(useCursorStore.getState().cursorPosition);
   const distortionRef = useRef<typeof MeshDistortMaterial>(null);
   const status = useRef<Status>('cursor');
   const targetDistortionSpeed = useRef(2);
@@ -42,10 +44,9 @@ export const CursorImageTransition = ({
   const texture = useTexture(src);
   const { viewport } = useThree();
 
-  const { cursorPosition } = useCursorStore.getState();
   const initialPosition = DOMtoThreeCoords(
-    cursorPosition.x,
-    cursorPosition.y,
+    cursorInitialRef.current.x,
+    cursorInitialRef.current.y,
     viewport
   );
   // const initialPosition = useRef();
@@ -105,7 +106,7 @@ export const CursorImageTransition = ({
       distort: 0,
       duration: 1,
       ease: 'power2.out',
-      delay: 1,
+      delay: 1.2,
     });
   }, []);
 
@@ -124,7 +125,8 @@ export const CursorImageTransition = ({
   // });
 
   return (
-    <mesh
+    <motion.mesh
+      // @ts-ignore
       ref={ref}
       position={[
         initialPosition.x + initialScale.x / 2 + initialOffset,
@@ -132,10 +134,12 @@ export const CursorImageTransition = ({
         IMAGE_TRANSITION_Z,
       ]}
       scale={initialScale}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 2 }}
     >
       <planeGeometry args={[1, 1, 32, 32]} />
-      <MeshDistortMaterial ref={distortionRef} map={texture} />
-    </mesh>
+      <MeshDistortMaterial ref={distortionRef} map={texture} speed={3} />
+    </motion.mesh>
   );
 };
 

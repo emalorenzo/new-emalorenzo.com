@@ -89,6 +89,10 @@ const ArticlePage: NextPageWithLayout<Props> = ({ mdx, metadata }) => {
       src: image,
       background,
     });
+
+    return () => {
+      setTransition(null);
+    };
   }, []);
 
   return (
@@ -97,8 +101,8 @@ const ArticlePage: NextPageWithLayout<Props> = ({ mdx, metadata }) => {
         className="flex flex-col relative z-10 bg-black"
         initial={{ y: '100vh' }}
         animate={{ y: '70vh' }}
-        exit={{ opacity: 0, transition: { duration: 1 } }}
-        transition={{ duration: 0.7, ease: 'easeInOut' }}
+        exit={{ opacity: 0, transition: { duration: 0.5 } }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
       >
         <Head />
         {/* <ImageWrapper>
