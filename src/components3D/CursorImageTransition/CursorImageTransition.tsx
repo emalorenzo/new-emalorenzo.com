@@ -83,7 +83,7 @@ export const CursorImageTransition = ({
       ease: 'power2.out',
     });
     gsap.to(distortionRef.current, {
-      distort: 0.4,
+      distort: 0.3,
       duration: 0.5,
       ease: 'power2.out',
     });
@@ -92,21 +92,21 @@ export const CursorImageTransition = ({
       x: viewport.getCurrentViewport().width * 0.35,
       y: viewport.getCurrentViewport().height * finalHeightScale,
       duration: 1,
-      ease: 'power2.out',
-      delay: 1,
+      ease: 'power2.in',
+      delay: 0.5,
     });
     gsap.to(ref.current.position, {
       x: 0,
       y: viewport.getCurrentViewport().height * 0.15,
       duration: 1,
-      ease: 'power2.out',
-      delay: 1,
+      ease: 'power2.in',
+      delay: 0.5,
     });
     gsap.to(distortionRef.current, {
-      distort: 0,
+      distort: 0.1,
       duration: 1,
-      ease: 'power2.out',
-      delay: 1.2,
+      ease: 'power2.in',
+      delay: 1,
     });
   }, []);
 

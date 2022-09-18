@@ -73,8 +73,6 @@ const ArticlePage: NextPageWithLayout<Props> = ({ mdx, metadata }) => {
   const likeRef = useRef(null);
   const { title, image, subtitle, background } = metadata;
   const dom = useGlobalStore((s) => s.dom);
-  const { setBlob } = useBlob();
-  const { setCursor } = useCursor();
   const { setTransition } = useTransition();
 
   useEffect(() => {
@@ -99,10 +97,10 @@ const ArticlePage: NextPageWithLayout<Props> = ({ mdx, metadata }) => {
     <>
       <motion.main
         className="flex flex-col relative z-10 bg-black"
-        initial={{ y: '100vh' }}
+        initial={{ y: '110vh' }}
         animate={{ y: '70vh' }}
         exit={{ opacity: 0, transition: { duration: 0.5 } }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
+        transition={{ duration: 1, ease: 'easeOut' }}
       >
         <Head />
         {/* <ImageWrapper>
