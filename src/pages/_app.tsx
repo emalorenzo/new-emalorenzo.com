@@ -6,21 +6,21 @@ import { useEffect } from 'react';
 
 import { GlobalStyles } from '@/components';
 import { Dom, GlobalCanvas } from '@/layouts';
+import { useGlobalStore } from '@/store';
 import type { AppPropsWithLayout } from '@/types';
 
-const TransitionManager = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    // TODO: add transition manager
-  }, [router.asPath]);
-  return null;
-};
-
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
+  const router = useRouter();
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
   console.log(Component.name);
+
+  // The global canvan won't know that the router has changed
+  // so we need to update it manually
+  useEffect(() => {
+    useGlobalStore.setState({ router });
+  }, [router]);
+
   return (
     <>
       <Dom>
@@ -40,8 +40,8 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
           </AnimatePresence>
         )}
       </Dom>
+      {/* This bad boi won't rerender and it will hold the transitions */}
       <GlobalCanvas />
-      <TransitionManager />
       <GlobalStyles />
     </>
   );

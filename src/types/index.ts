@@ -16,6 +16,7 @@ export type AppPropsWithLayout<T = unknown> = AppProps & {
 
 export interface ArticleMeta {
   title: string;
+  subtitle: string;
   publishedAt: string;
   summary: string;
   image: string;

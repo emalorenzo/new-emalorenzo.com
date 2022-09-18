@@ -65,7 +65,7 @@ const BlogPage: NextPageWithLayout<Props> = ({ articles, tags }) => {
     <main className="flex flex-col max-w-center items-stretch h-full">
       <Head />
       <Hero />
-      <section className="relative flex">
+      <section className="relative flex mb-20">
         <aside className="absolute left-0 top-0 hidden xl:block">
           <Title>Articulos</Title>
           <ul>

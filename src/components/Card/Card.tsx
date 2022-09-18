@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { useBlob, useCursor } from '@/hooks';
+import { useBlob, useCursor, useTransition } from '@/hooks';
 
 const Wrapper = styled.article`
   /* height: 280px; */
@@ -92,26 +92,20 @@ export const Card = ({
   summary,
   background,
 }: Props) => {
-  const isSelected = useRef(false);
   const { setCursor } = useCursor();
   const { setBlob } = useBlob();
+  const { setTransition } = useTransition();
 
   const handlePointerEnter = () => {
-    if (!isSelected.current) {
-      setBlob({ status: 'preview', color: background });
-      setCursor({ type: 'image', config: { src: image } });
-    }
+    setBlob({ status: 'preview', color: background });
+    setCursor({ type: 'image', config: { src: image } });
   };
   const handlePointerLeave = () => {
-    if (!isSelected.current) {
-      setBlob({ status: 'idle' });
-      setCursor({ type: 'default' });
-    }
+    setBlob({ status: 'idle' });
+    setCursor({ type: 'default' });
   };
   const handlePointerDown = () => {
-    isSelected.current = true;
-    setBlob({ status: 'full', color: background });
-    setCursor({ type: 'image', config: { src: image, useAsHero: true } });
+    setTransition({ type: 'cursor-image', src: image, background });
   };
 
   return (

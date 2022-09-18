@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import * as THREE from 'three';
 
+import { BLOB_Z } from '@/constants/zIndex';
 import { useBlobStore } from '@/store';
 
 export type IBlobStatus = 'idle' | 'preview' | 'full';
@@ -118,7 +119,7 @@ export const Blob = ({ color }) => {
   return (
     <mesh
       ref={ref}
-      position={[-viewport.width / 2, viewport.height / 2, 0]}
+      position={[-viewport.width / 2, viewport.height / 2, BLOB_Z]}
       scale={0}
     >
       <circleGeometry args={[viewport.width / 8, 64]} />

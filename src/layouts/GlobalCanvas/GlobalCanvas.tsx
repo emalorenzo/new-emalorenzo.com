@@ -2,7 +2,7 @@ import { Environment } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
 
-import { Blob, Cursor } from '@/components3D';
+import { Blob, Cursor, TransitionManager } from '@/components3D';
 
 const Scene = () => {
   return (
@@ -11,6 +11,7 @@ const Scene = () => {
       <ambientLight />
       <Cursor />
       <Blob />
+      <TransitionManager />
     </Suspense>
   );
 };

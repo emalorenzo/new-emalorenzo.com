@@ -14,12 +14,12 @@ import {
   TableOfContents,
   Typography,
 } from '@/components';
-import { useBlob, useCursor } from '@/hooks';
+import { useBlob, useCursor, useTransition } from '@/hooks';
 import { MainLayout } from '@/layouts';
 import { getMDX, listFiles } from '@/lib/cms';
 import { ArticleScene } from '@/scenes';
 import { useGlobalStore } from '@/store';
-import type { NextPageWithLayout } from '@/types';
+import type { ArticleMeta, NextPageWithLayout } from '@/types';
 
 const Wrapper = styled.main`
   display: flex;
@@ -64,12 +64,18 @@ const Article = styled(motion.article)`
   /* margin: 0 auto; */
 `;
 
-const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
+interface Props {
+  metadata: ArticleMeta;
+  mdx: any;
+}
+
+const ArticlePage: NextPageWithLayout<Props> = ({ mdx, metadata }) => {
   const likeRef = useRef(null);
-  const { title, image, subtitle } = metadata;
+  const { title, image, subtitle, background } = metadata;
   const dom = useGlobalStore((s) => s.dom);
-  // const { setBlob } = useBlob();
-  // const { setCursor } = useCursor();
+  const { setBlob } = useBlob();
+  const { setCursor } = useCursor();
+  const { setTransition } = useTransition();
 
   useEffect(() => {
     if (likeRef.current) {
@@ -77,9 +83,13 @@ const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
     }
   }, [likeRef]);
 
-  useLayoutEffect(() => {
-    // setInitialBlob('full');
-  });
+  useEffect(() => {
+    setTransition({
+      type: 'cursor-image',
+      src: image,
+      background,
+    });
+  }, []);
 
   return (
     <>
@@ -87,7 +97,8 @@ const ArticlePage: NextPageWithLayout = ({ mdx, metadata }: any) => {
         className="flex flex-col relative z-10 bg-black"
         initial={{ y: '100vh' }}
         animate={{ y: '70vh' }}
-        transition={{ duration: 1 }}
+        exit={{ opacity: 0, transition: { duration: 1 } }}
+        transition={{ duration: 0.7, ease: 'easeInOut' }}
       >
         <Head />
         {/* <ImageWrapper>

@@ -12,6 +12,7 @@ const LogoWrapper = styled.span`
   margin: 0;
   overflow: hidden;
   height: 1.5rem;
+  min-width: 200px;
   /* width: ${({ roomForIcon }) => (roomForIcon ? '120px' : '100px')}; */
   transition: width 0.5s ease-in-out;
   transition-delay: ${({ roomForIcon }) => (roomForIcon ? '0s' : '0.7s')};
@@ -62,6 +63,7 @@ const SVGTransition: any = {
 
 const HomeIcon = ({ delay }) => (
   <motion.svg
+    className="absolute"
     xmlns="http://www.w3.org/2000/svg"
     width="18"
     height="18"
@@ -116,7 +118,7 @@ const Section = ({ section, href, isLink }) => {
           {section}
         </motion.p>
       )}
-      <motion.span className="absolute top-0 left-0">/</motion.span>
+      <motion.span className="absolute left-0">/</motion.span>
     </motion.div>
   );
 };
@@ -152,7 +154,7 @@ export const Header = () => {
           {/* Home url */}
           {urls.length > 1 && (
             <Link href="/" passHref>
-              <a>
+              <a className="w-[18px] h-[18px] relative">
                 {/* we dont need delay for home,
                 but for the other sections we wait for them to be hidden */}
                 <HomeIcon delay={urls.length - 1} />
@@ -165,7 +167,7 @@ export const Header = () => {
               className="font-bold"
               initial={{ x: '-100%' }}
               animate={{ x: '0' }}
-              exit={{ x: '-100%' }}
+              exit={{ x: '-100%', position: 'absolute' }}
               transition={{ duration: 1 }}
             >
               {urls[0].name}

@@ -1,8 +1,8 @@
-import { Trail } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import * as THREE from 'three';
 
+import { useTransition } from '@/hooks';
 import { DOMtoThreeCoords } from '@/lib/utils';
 import { useCursorStore } from '@/store';
 
@@ -35,8 +35,10 @@ export const Cursor = () => {
   const controllerRef = useRef<CursorController>(null);
   const cursorPosition = useRef(useCursorStore.getState().cursorPosition);
   const { setCursorController } = useCursorStore.getState();
+  const { getTransition } = useTransition();
 
   const [cursor, setCursor] = useState<ICursor>(null);
+  const transition = getTransition();
 
   useImperativeHandle(controllerRef, () => ({
     setCursor: (newCursor) => {
@@ -66,8 +68,13 @@ export const Cursor = () => {
     }
   });
 
+  console.log('render outside', transition, cursor);
+
   const renderCursor = {
-    image: () => <CursorImage ref={ref} {...(cursor as CursorImage).config} />,
+    image: () =>
+      transition?.type !== 'cursor-image' ? (
+        <CursorImage ref={ref} {...(cursor as CursorImage).config} />
+      ) : null,
   }[cursor?.type];
 
   return (
