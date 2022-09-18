@@ -1,5 +1,11 @@
 import { useFrame, useThree } from '@react-three/fiber';
-import { useEffect, useImperativeHandle, useRef, useState } from 'react';
+import {
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import * as THREE from 'three';
 
 import { useTransition } from '@/hooks';
@@ -68,14 +74,16 @@ export const Cursor = () => {
     }
   });
 
-  console.log('render outside', transition, cursor);
-
-  const renderCursor = {
-    image: () =>
-      transition?.type !== 'cursor-image' ? (
+  const renderCursor = useMemo(() => {
+    console.log('render cursor');
+    return {
+      image: () => (
+        // transition?.type !== 'cursor-image' ? (
         <CursorImage ref={ref} {...(cursor as CursorImage).config} />
-      ) : null,
-  }[cursor?.type];
+      ),
+      // ) : null,
+    }[cursor?.type];
+  }, [cursor]);
 
   return (
     <>

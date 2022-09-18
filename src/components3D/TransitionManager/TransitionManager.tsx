@@ -64,11 +64,6 @@ export const TransitionManager = () => {
 
   const { setBlob } = useBlob();
 
-  // USEEFFECT O USELAYOUTEFFECT
-  // ESTE COMPONENTE SIRVE PARA EJECUTAR EL ESTADO INICIAL
-  // DE UNA PAGINA CUANDO SE RECARGA
-  // COMO POR EJ EL IMAGE HERO DE ARTICLE
-
   useImperativeHandle(controllerRef, () => ({
     setTransition: (newTransition) => {
       setTransition(newTransition);
@@ -81,6 +76,8 @@ export const TransitionManager = () => {
   useEffect(() => {
     setTransitionController(controllerRef);
   }, []);
+
+  console.log('transition', transition);
 
   useEffect(() => {
     if (transition?.type === 'cursor-image') {

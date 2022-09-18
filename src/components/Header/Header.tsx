@@ -145,7 +145,6 @@ export const Header = () => {
 
     return { url, name };
   });
-  console.log(urls);
 
   return (
     <header className="fixed z-20 top-0 py-3 font-light h-20 flex justify-between left-0 right-0 items-center max-w-center">
