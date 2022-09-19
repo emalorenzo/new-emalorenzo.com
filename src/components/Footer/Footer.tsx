@@ -16,10 +16,13 @@ const FooterLine = styled.div`
 export const Footer = () => (
   <>
     <FooterLine />
-    <footer className="p-8 flex justify-between max-w-center">
+    <footer className="p-12 flex justify-between max-w-center text-sm">
       <div className="flex flex-row items-center">
         <Link href="https://www.linkedin.com/in/emanuellorenzo/" passHref>
           <a className="mr-4">LinkedIn</a>
+        </Link>
+        <Link href="https://www.github.com/emaLorenzo" passHref>
+          <a className="mr-4">GitHub</a>
         </Link>
         <Link href="https://www.linkedin.com/in/emanuellorenzo/" passHref>
           <a className="mr-4">Instagram</a>
@@ -28,7 +31,9 @@ export const Footer = () => (
           <a>Twitter</a>
         </Link>
       </div>
-      <span className="min-w-fit">© 2022 Emanuel Lorenzo —— Buenos Aires</span>
+      <span className="min-w-fit text-xs">
+        © 2022 Emanuel Lorenzo. All Rights Reserved.
+      </span>
     </footer>
   </>
 );
