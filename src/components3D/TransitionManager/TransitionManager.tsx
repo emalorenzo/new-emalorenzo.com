@@ -46,47 +46,17 @@ export type TransitionController = {
   getTransition: () => ITransition;
 };
 
-const RenderTransition = ({ transition }) => {
-  if (transition?.type === 'cursor-image') {
-    return (
-      <CursorImageTransition src={(transition as CursorImageTransition).src} />
-    );
-  }
-  return null;
-};
-
 export const TransitionManager = () => {
-  const controllerRef = useRef<TransitionController>(null);
-  const { pathname } = useGlobalStore((s) => s.router);
-  const { setTransitionController } = useTransitionStore.getState();
+  const transition = useTransitionStore((s) => s.transition);
+  if (!transition) return null;
 
-  const [transition, setTransition] = useState<ITransition | null>(null);
-
-  const { setBlob } = useBlob();
-
-  useImperativeHandle(controllerRef, () => ({
-    setTransition: (newTransition) => {
-      setTransition(newTransition);
-    },
-    getTransition: () => {
-      return transition;
-    },
-  }));
-
-  useEffect(() => {
-    setTransitionController(controllerRef);
-  }, []);
-
-  console.log('transition', transition);
-
-  useEffect(() => {
-    if (transition?.type === 'cursor-image') {
-      setBlob({
-        status: 'full',
-        color: (transition as CursorImageTransition).background,
-      });
-    }
-  }, [transition]);
-
-  return <RenderTransition transition={transition} />;
+  // usar isActive rompe toda la app, habria que ver porqué
+  // quizas castear a CursorImageTransition cuando transition es null?
+  return (
+    <CursorImageTransition
+      isActive={transition?.type === 'cursor-image'}
+      src={(transition as CursorImageTransition)?.src}
+      background={(transition as CursorImageTransition)?.background}
+    />
+  );
 };

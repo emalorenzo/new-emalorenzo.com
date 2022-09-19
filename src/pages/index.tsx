@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 
-import { Head, Hero } from '@/components';
+import { Footer, Head, Hero } from '@/components';
 import { useBlob, useCursor } from '@/hooks';
-import { MainLayout } from '@/layouts';
 import type { ArticleMeta, NextPageWithLayout } from '@/types';
 
 interface Props {
@@ -20,15 +19,14 @@ const HomePage: NextPageWithLayout<Props> = () => {
   }, []);
 
   return (
-    <main className="flex flex-col max-w-center items-stretch h-full">
-      <Head />
-      <Hero />
-    </main>
+    <>
+      <main className="flex flex-col justify-center max-w-center items-stretch flex-1">
+        <Head />
+        <Hero />
+      </main>
+      <Footer />
+    </>
   );
-};
-
-HomePage.getLayout = function getLayout(page) {
-  return <MainLayout>{page}</MainLayout>;
 };
 
 export default HomePage;

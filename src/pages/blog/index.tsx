@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 
-import { Card, Flex, Head } from '@/components';
+import { Card, Flex, Footer, Head } from '@/components';
 import { useBlob, useCursor } from '@/hooks';
 import { MainLayout } from '@/layouts';
 import { getMDX, listFiles } from '@/lib/cms';
@@ -62,47 +62,50 @@ const BlogPage: NextPageWithLayout<Props> = ({ articles, tags }) => {
   }, []);
 
   return (
-    <main className="flex flex-col max-w-center items-stretch h-full">
-      <Head />
-      <Hero />
-      <section className="relative flex mb-20">
-        <aside className="absolute left-0 top-0 hidden xl:block">
-          <Title>Articulos</Title>
-          <ul>
-            <li>
-              <Link
-                passHref
-                href={{
-                  pathname: '/',
-                }}
-              >
-                <PostFilter selected={!filter}>All</PostFilter>
-              </Link>
-            </li>
-            {tags.map((tag) => (
-              <li key={tag}>
+    <>
+      <main className="flex flex-col max-w-center items-stretch h-full">
+        <Head />
+        <Hero />
+        <section className="relative flex mb-20">
+          <aside className="absolute left-0 top-0 hidden xl:block">
+            <Title>Articulos</Title>
+            <ul>
+              <li>
                 <Link
                   passHref
                   href={{
                     pathname: '/',
-                    query: { filter: tag.toLowerCase() },
                   }}
                 >
-                  <PostFilter selected={filter === tag.toLowerCase()}>
-                    {tag}
-                  </PostFilter>
+                  <PostFilter selected={!filter}>All</PostFilter>
                 </Link>
               </li>
+              {tags.map((tag) => (
+                <li key={tag}>
+                  <Link
+                    passHref
+                    href={{
+                      pathname: '/',
+                      query: { filter: tag.toLowerCase() },
+                    }}
+                  >
+                    <PostFilter selected={filter === tag.toLowerCase()}>
+                      {tag}
+                    </PostFilter>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </aside>
+          <div className="flex flex-col mx-auto">
+            {filteredArticles.map((card) => (
+              <Card key={card.title} {...card} />
             ))}
-          </ul>
-        </aside>
-        <div className="flex flex-col mx-auto">
-          {filteredArticles.map((card) => (
-            <Card key={card.title} {...card} />
-          ))}
-        </div>
-      </section>
-    </main>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
   );
 };
 

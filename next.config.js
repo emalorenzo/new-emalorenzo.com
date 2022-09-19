@@ -12,7 +12,7 @@ module.exports = withBundleAnalyzer({
   experimental: {
     concurrentFeatures: true,
   },
-  reactStrictMode: false,
+  reactStrictMode: true,
 
   // TODO: I'd like to have my blog on blog.emalorenzo.com
   // but I don't know how to do it yet

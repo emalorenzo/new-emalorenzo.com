@@ -1,20 +1,20 @@
 import { MeshDistortMaterial, useTexture } from '@react-three/drei';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useThree } from '@react-three/fiber';
+import { AnimatePresence } from 'framer-motion';
 import { motion } from 'framer-motion-3d';
 import gsap from 'gsap';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 import { IMAGE_TRANSITION_Z } from '@/constants/zIndex';
+import { useBlob } from '@/hooks';
 import { DOMtoThreeCoords } from '@/lib/utils';
 import { useCursorStore } from '@/store';
 
-type Status = 'cursor' | 'full' | 'compact';
-
 interface Props {
+  isActive: boolean;
   src: string;
-  cursorToFullDuration?: number;
-  fullToCompactDuration?: number;
+  background: string;
 }
 
 const HERO_POSITION = new THREE.Vector3(0, 0, 0);
@@ -28,18 +28,13 @@ const scaleCompact = new THREE.Vector3(3, 2, 1);
 const targetPosition = new THREE.Vector3(0, 0, IMAGE_TRANSITION_Z);
 const targetScale = new THREE.Vector3(3, 2, 1);
 
-export const CursorImageTransition = ({
-  src,
-  cursorToFullDuration,
-  fullToCompactDuration,
-}: Props) => {
-  console.log('ImageTransition render');
+export const CursorImageTransition = ({ isActive, src, background }: Props) => {
+  console.log('ImageTransition render', isActive);
 
   const ref = useRef<THREE.Mesh>(null);
+  const { setBlob } = useBlob();
   const cursorInitialRef = useRef(useCursorStore.getState().cursorPosition);
   const distortionRef = useRef<typeof MeshDistortMaterial>(null);
-  const status = useRef<Status>('cursor');
-  const targetDistortionSpeed = useRef(2);
 
   const texture = useTexture(src);
   const { viewport } = useThree();
@@ -70,6 +65,13 @@ export const CursorImageTransition = ({
   // }, [status]);
 
   useEffect(() => {
+    if (!isActive) return;
+
+    setBlob({
+      status: 'full',
+      color: background,
+    });
+
     gsap.to(ref.current.scale, {
       x: viewport.getCurrentViewport().width * scaleFull,
       y: viewport.getCurrentViewport().height * scaleFull,
@@ -108,7 +110,7 @@ export const CursorImageTransition = ({
       ease: 'power2.inOut',
       delay: 1,
     });
-  }, []);
+  }, [isActive]);
 
   // useFrame(() => {
   //   if (ref.current) {
@@ -125,25 +127,24 @@ export const CursorImageTransition = ({
   // });
 
   return (
-    <motion.mesh
-      // @ts-ignore
-      ref={ref}
-      position={[
-        initialPosition.x + initialScale.x / 2 + initialOffset,
-        initialPosition.y + initialScale.y / 2 + initialOffset,
-        IMAGE_TRANSITION_Z,
-      ]}
-      scale={initialScale}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 2 }}
-    >
-      <planeGeometry args={[1, 1, 32, 32]} />
-      <MeshDistortMaterial ref={distortionRef} map={texture} speed={3} />
-    </motion.mesh>
+    <AnimatePresence>
+      {isActive && (
+        <motion.mesh
+          // @ts-ignore
+          ref={ref}
+          position={[
+            initialPosition.x + initialScale.x / 2 + initialOffset,
+            initialPosition.y + initialScale.y / 2 + initialOffset,
+            IMAGE_TRANSITION_Z,
+          ]}
+          scale={initialScale}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 2 }}
+        >
+          <planeGeometry args={[1, 1, 32, 32]} />
+          <MeshDistortMaterial ref={distortionRef} map={texture} speed={3} />
+        </motion.mesh>
+      )}
+    </AnimatePresence>
   );
-};
-
-CursorImageTransition.defaultProps = {
-  cursorToFullDuration: 0.5,
-  fullToCompactDuration: 0.5,
 };

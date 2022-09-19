@@ -7,6 +7,7 @@ import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import {
+  Footer,
   Head,
   Like,
   MaxWidthWrapper,
@@ -14,11 +15,11 @@ import {
   TableOfContents,
   Typography,
 } from '@/components';
-import { useBlob, useCursor, useTransition } from '@/hooks';
+import { useBlob, useCursor } from '@/hooks';
 import { MainLayout } from '@/layouts';
 import { getMDX, listFiles } from '@/lib/cms';
 import { ArticleScene } from '@/scenes';
-import { useGlobalStore } from '@/store';
+import { useGlobalStore, useTransitionStore } from '@/store';
 import type { ArticleMeta, NextPageWithLayout } from '@/types';
 
 const Wrapper = styled.main`
@@ -73,7 +74,7 @@ const ArticlePage: NextPageWithLayout<Props> = ({ mdx, metadata }) => {
   const likeRef = useRef(null);
   const { title, image, subtitle, background } = metadata;
   const dom = useGlobalStore((s) => s.dom);
-  const { setTransition } = useTransition();
+  const { setTransition } = useTransitionStore.getState();
 
   useEffect(() => {
     if (likeRef.current) {
@@ -95,17 +96,21 @@ const ArticlePage: NextPageWithLayout<Props> = ({ mdx, metadata }) => {
 
   return (
     <>
+      <Head />
+      <Canvas
+        onCreated={(state) => state.events.connect(dom.current)}
+        className="canvas"
+      >
+        <PerspectiveCamera makeDefault fov={20} far={1000} />
+        <ArticleScene />
+      </Canvas>
       <motion.main
         className="flex flex-col relative z-10 bg-black"
         initial={{ y: '110vh' }}
         animate={{ y: '70vh' }}
-        exit={{ opacity: 0, transition: { duration: 0.5 } }}
+        exit={{ y: '100vh', transition: { duration: 0.5 } }}
         transition={{ duration: 1, ease: 'easeOut' }}
       >
-        <Head />
-        {/* <ImageWrapper>
-          <Image src={image} layout="fill" objectFit="cover" />
-        </ImageWrapper> */}
         <MaxWidthWrapper>
           <Typography.Title className="mt-24">{title}</Typography.Title>
           <Typography.Subtitle className="mb-16">
@@ -128,14 +133,8 @@ const ArticlePage: NextPageWithLayout<Props> = ({ mdx, metadata }) => {
             <MDX source={mdx} />
           </Article>
         </MaxWidthWrapper>
+        <Footer />
       </motion.main>
-      <Canvas
-        onCreated={(state) => state.events.connect(dom.current)}
-        className="canvas"
-      >
-        <PerspectiveCamera makeDefault fov={20} far={1000} />
-        <ArticleScene />
-      </Canvas>
     </>
   );
 };

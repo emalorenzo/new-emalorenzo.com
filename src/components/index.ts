@@ -1,6 +1,7 @@
 export * from './Blog';
 export { Card } from './Card';
 export { Flex } from './Flex';
+export { Footer } from './Footer';
 export { GlobalStyles } from './GlobalStyles';
 export { Head } from './Head';
 export { Header } from './Header';

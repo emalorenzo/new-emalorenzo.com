@@ -8,9 +8,8 @@ import {
 } from 'react';
 import * as THREE from 'three';
 
-import { useTransition } from '@/hooks';
 import { DOMtoThreeCoords } from '@/lib/utils';
-import { useCursorStore } from '@/store';
+import { useCursorStore, useTransitionStore } from '@/store';
 
 import type { Props as ImageProps } from './CursorImage';
 import { CursorImage } from './CursorImage';
@@ -41,10 +40,9 @@ export const Cursor = () => {
   const controllerRef = useRef<CursorController>(null);
   const cursorPosition = useRef(useCursorStore.getState().cursorPosition);
   const { setCursorController } = useCursorStore.getState();
-  const { getTransition } = useTransition();
+  const transition = useTransitionStore((s) => s.transition);
 
   const [cursor, setCursor] = useState<ICursor>(null);
-  const transition = getTransition();
 
   useImperativeHandle(controllerRef, () => ({
     setCursor: (newCursor) => {
@@ -77,13 +75,12 @@ export const Cursor = () => {
   const renderCursor = useMemo(() => {
     console.log('render cursor');
     return {
-      image: () => (
-        // transition?.type !== 'cursor-image' ? (
-        <CursorImage ref={ref} {...(cursor as CursorImage).config} />
-      ),
-      // ) : null,
+      image: () =>
+        transition?.type !== 'cursor-image' ? (
+          <CursorImage ref={ref} {...(cursor as CursorImage).config} />
+        ) : null,
     }[cursor?.type];
-  }, [cursor]);
+  }, [transition, cursor]);
 
   return (
     <>
