@@ -2,8 +2,6 @@ import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 
-import { MainLayout } from '@/layouts';
-
 const Wrapper = styled.main`
   height: 100%;
   display: grid;
@@ -18,13 +16,11 @@ const Wrapper = styled.main`
 
 export const ErrorLayout = ({ children }) => {
   return (
-    <MainLayout>
-      <Wrapper>
-        {children}
-        <Link href="/" passHref>
-          <a>Go back to home</a>
-        </Link>
-      </Wrapper>
-    </MainLayout>
+    <Wrapper>
+      {children}
+      <Link href="/" passHref>
+        <a>Go back to home</a>
+      </Link>
+    </Wrapper>
   );
 };

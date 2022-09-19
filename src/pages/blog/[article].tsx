@@ -16,7 +16,6 @@ import {
   Typography,
 } from '@/components';
 import { useBlob, useCursor } from '@/hooks';
-import { MainLayout } from '@/layouts';
 import { getMDX, listFiles } from '@/lib/cms';
 import { ArticleScene } from '@/scenes';
 import { useGlobalStore, useTransitionStore } from '@/store';
@@ -137,10 +136,6 @@ const ArticlePage: NextPageWithLayout<Props> = ({ mdx, metadata }) => {
       </motion.main>
     </>
   );
-};
-
-ArticlePage.getLayout = function getLayout(page) {
-  return <MainLayout>{page}</MainLayout>;
 };
 
 export const getStaticPaths = async () => {

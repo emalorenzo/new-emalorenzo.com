@@ -6,7 +6,6 @@ import styled from 'styled-components';
 
 import { Card, Flex, Footer, Head } from '@/components';
 import { useBlob, useCursor } from '@/hooks';
-import { MainLayout } from '@/layouts';
 import { getMDX, listFiles } from '@/lib/cms';
 import { groupTags } from '@/lib/utils';
 import type { ArticleMeta, NextPageWithLayout } from '@/types';
@@ -107,10 +106,6 @@ const BlogPage: NextPageWithLayout<Props> = ({ articles, tags }) => {
       <Footer />
     </>
   );
-};
-
-BlogPage.getLayout = function getLayout(page) {
-  return <MainLayout>{page}</MainLayout>;
 };
 
 export const getStaticProps = async () => {
