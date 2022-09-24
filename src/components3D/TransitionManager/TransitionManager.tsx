@@ -8,10 +8,8 @@ import {
 } from 'react';
 
 import { CursorImageTransition } from '@/components3D';
-import { useBlob } from '@/hooks';
-import { useGlobalStore } from '@/store';
-import type { ICursorImageTransition } from '@/store/transitionStore';
-import { useTransitionStore } from '@/store/transitionStore';
+import { useGlobalCanvasStore } from '@/store';
+import type { ICursorImageTransition } from '@/store/globalCanvasStore';
 
 const ROUTES = {
   home: '/',
@@ -31,7 +29,7 @@ const TRANSITIONS = {
 };
 
 export const TransitionManager = () => {
-  const transition = useTransitionStore((s) => s.transition);
+  const transition = useGlobalCanvasStore((s) => s.transition);
   if (!transition) return null;
 
   // usar isActive rompe toda la app, habria que ver porqué

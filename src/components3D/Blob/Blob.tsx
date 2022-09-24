@@ -1,63 +1,35 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import gsap from 'gsap';
-import { useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 import { BLOB_Z } from '@/constants/zIndex';
-import { useBlobStore } from '@/store';
-
-export type IBlobStatus = 'idle' | 'preview' | 'full';
-
-interface StatusIdle {
-  status: 'idle';
-}
-
-interface StatusAnimate {
-  status: 'preview';
-  color: string;
-}
-
-interface StatusFull {
-  status: 'full';
-  color: string;
-}
-
-export type IBlob = StatusIdle | StatusAnimate | StatusFull;
-
-export type BlobController = {
-  setBlob: (blob: IBlob) => void;
-};
+import { useGlobalCanvasStore } from '@/store';
 
 const targetScale = new THREE.Vector3();
 
-export const Blob = ({ color }) => {
+export const Blob = ({ defaultColor }) => {
   const ref = useRef<THREE.Mesh>(null);
   const materialRef = useRef<THREE.MeshBasicMaterial>(null);
-  const controllerRef = useRef<BlobController>(null);
   const isAnimationLocked = useRef(false);
-  const { setBlobController } = useBlobStore.getState();
   const { viewport } = useThree();
 
-  const [blob, setBlob] = useState<IBlob>({ status: 'idle' });
-  const { status } = blob;
-  const targetColor = status === 'idle' ? color : blob.color;
+  const blob = useGlobalCanvasStore((s) => s.blob);
+  const targetColor =
+    blob && blob.status !== 'idle' ? blob.color : defaultColor;
 
-  useImperativeHandle(controllerRef, () => ({
-    setBlob: (newBlob) => {
-      if (
-        !(
-          status === 'full' &&
-          ref.current.scale.x < viewport.getCurrentViewport().width * 0.9
-        )
-      ) {
-        setBlob(newBlob);
-      }
-    },
-  }));
-
-  useEffect(() => {
-    setBlobController(controllerRef);
-  }, []);
+  // useImperativeHandle(controllerRef, () => ({
+  //   setBlob: (newBlob) => {
+  //     if (
+  //       !(
+  //         status === 'full' &&
+  //         ref.current.scale.x < viewport.getCurrentViewport().width * 0.9
+  //       )
+  //     ) {
+  //       setBlob(newBlob);
+  //     }
+  //   },
+  // }));
 
   useEffect(() => {
     isAnimationLocked.current = true;
@@ -94,7 +66,8 @@ export const Blob = ({ color }) => {
   // }, [status]);
 
   useFrame(({ clock }) => {
-    if (ref.current && !isAnimationLocked.current) {
+    if (ref.current && !isAnimationLocked.current && blob) {
+      const { status } = blob;
       if (status === 'idle' || status === 'preview') {
         const amplitude = status === 'idle' ? 0.5 : 1;
         targetScale.set(
@@ -129,5 +102,5 @@ export const Blob = ({ color }) => {
 };
 
 Blob.defaultProps = {
-  color: '#212121',
+  defaultColor: '#212121',
 };

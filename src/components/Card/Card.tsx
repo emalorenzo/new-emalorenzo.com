@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { useBlob, useCursor } from '@/hooks';
-import { useTransitionStore } from '@/store';
+import { useCursor } from '@/hooks';
+import { useGlobalCanvasStore } from '@/store';
 
 const Wrapper = styled.article`
   /* height: 280px; */
@@ -94,8 +94,7 @@ export const Card = ({
   background,
 }: Props) => {
   const { setCursor } = useCursor();
-  const { setBlob } = useBlob();
-  const { setTransition } = useTransitionStore.getState();
+  const { setTransition, setBlob } = useGlobalCanvasStore.getState();
 
   const handlePointerEnter = () => {
     setBlob({ status: 'preview', color: background });

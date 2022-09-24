@@ -7,9 +7,8 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 import { IMAGE_TRANSITION_Z } from '@/constants/zIndex';
-import { useBlob } from '@/hooks';
 import { DOMtoThreeCoords } from '@/lib/utils';
-import { useCursorStore } from '@/store';
+import { useCursorStore, useGlobalCanvasStore } from '@/store';
 
 interface Props {
   isActive: boolean;
@@ -32,9 +31,9 @@ export const CursorImageTransition = ({ isActive, src, background }: Props) => {
   console.log('ImageTransition render', isActive);
 
   const ref = useRef<THREE.Mesh>(null);
-  const { setBlob } = useBlob();
   const cursorInitialRef = useRef(useCursorStore.getState().cursorPosition);
   const distortionRef = useRef<typeof MeshDistortMaterial>(null);
+  const { setBlob } = useGlobalCanvasStore.getState();
 
   const texture = useTexture(src);
   const { viewport } = useThree();
@@ -111,20 +110,6 @@ export const CursorImageTransition = ({ isActive, src, background }: Props) => {
       delay: 1,
     });
   }, [isActive]);
-
-  // useFrame(() => {
-  //   if (ref.current) {
-  //     if (useAsHero) {
-  //       ref.current.position.lerp(HERO_POSITION, 0.02);
-  //     } else {
-  //       const x = cursorRef.current.position.x + previewWidth / 2 + offset;
-  //       const y = cursorRef.current.position.y + previewHeight / 2 + offset;
-  //       ref.current.position.set(x, y, 0);
-  //     }
-
-  //     ref.current.scale.lerp(scale, 0.05);
-  //   }
-  // });
 
   return (
     <AnimatePresence>

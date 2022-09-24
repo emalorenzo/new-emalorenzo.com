@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 
 import { Footer, Head, Hero } from '@/components';
-import { useBlob, useCursor } from '@/hooks';
+import { useCursor } from '@/hooks';
+import { useGlobalCanvasStore } from '@/store';
 import type { ArticleMeta, NextPageWithLayout } from '@/types';
 
 interface Props {
@@ -11,7 +12,7 @@ interface Props {
 
 const HomePage: NextPageWithLayout<Props> = () => {
   const { setCursor } = useCursor();
-  const { setBlob } = useBlob();
+  const { setBlob } = useGlobalCanvasStore.getState();
 
   useEffect(() => {
     setBlob({ status: 'idle' });

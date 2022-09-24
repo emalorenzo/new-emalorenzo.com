@@ -15,10 +15,9 @@ import {
   TableOfContents,
   Typography,
 } from '@/components';
-import { useBlob, useCursor } from '@/hooks';
 import { getMDX, listFiles } from '@/lib/cms';
 import { ArticleScene } from '@/scenes';
-import { useGlobalStore, useTransitionStore } from '@/store';
+import { useGlobalCanvasStore, useGlobalStore } from '@/store';
 import type { ArticleMeta, NextPageWithLayout } from '@/types';
 
 const Wrapper = styled.main`
@@ -73,7 +72,7 @@ const ArticlePage: NextPageWithLayout<Props> = ({ mdx, metadata }) => {
   const likeRef = useRef(null);
   const { title, image, subtitle, background } = metadata;
   const dom = useGlobalStore((s) => s.dom);
-  const { setTransition } = useTransitionStore.getState();
+  const { setTransition } = useGlobalCanvasStore.getState();
 
   useEffect(() => {
     if (likeRef.current) {

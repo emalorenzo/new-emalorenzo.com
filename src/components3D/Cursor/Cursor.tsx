@@ -9,7 +9,7 @@ import {
 import * as THREE from 'three';
 
 import { DOMtoThreeCoords } from '@/lib/utils';
-import { useCursorStore, useTransitionStore } from '@/store';
+import { useCursorStore, useGlobalCanvasStore } from '@/store';
 
 import type { Props as ImageProps } from './CursorImage';
 import { CursorImage } from './CursorImage';
@@ -40,7 +40,7 @@ export const Cursor = () => {
   const controllerRef = useRef<CursorController>(null);
   const cursorPosition = useRef(useCursorStore.getState().cursorPosition);
   const { setCursorController } = useCursorStore.getState();
-  const transition = useTransitionStore((s) => s.transition);
+  const transition = useGlobalCanvasStore((s) => s.transition);
 
   const [cursor, setCursor] = useState<ICursor>(null);
 

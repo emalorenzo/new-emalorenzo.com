@@ -5,9 +5,10 @@ import React, { useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 
 import { Card, Flex, Footer, Head } from '@/components';
-import { useBlob, useCursor } from '@/hooks';
+import { useCursor } from '@/hooks';
 import { getMDX, listFiles } from '@/lib/cms';
 import { groupTags } from '@/lib/utils';
+import { useGlobalCanvasStore } from '@/store';
 import type { ArticleMeta, NextPageWithLayout } from '@/types';
 
 const PostsFilterWrapper = styled(Flex)`
@@ -42,7 +43,7 @@ const Hero = () => (
 
 const BlogPage: NextPageWithLayout<Props> = ({ articles, tags }) => {
   const { setCursor } = useCursor();
-  const { setBlob } = useBlob();
+  const { setBlob } = useGlobalCanvasStore.getState();
   const router = useRouter();
   const { filter } = router.query;
 

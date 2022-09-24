@@ -1,5 +1,7 @@
 import create from 'zustand';
 
+import type { IBlobStatus } from '@/types/globalcanvas';
+
 export interface IModelTransition {
   type: 'model';
 }
@@ -12,14 +14,20 @@ export interface ICursorImageTransition {
 
 export type ITransition = ICursorImageTransition | IModelTransition | null;
 
-interface ITransitionStore {
+interface IGlobalCanvas {
   transition: ITransition;
   setTransition: (transition: ITransition) => void;
+  blob: IBlobStatus;
+  setBlob: (blob: IBlobStatus | null) => void;
 }
 
-export const useTransitionStore = create<ITransitionStore>((set) => ({
+export const useGlobalCanvasStore = create<IGlobalCanvas>((set) => ({
   transition: null,
   setTransition: (transition) => {
     set((state) => ({ ...state, transition }));
+  },
+  blob: null,
+  setBlob: (blob) => {
+    set((state) => ({ ...state, blob }));
   },
 }));

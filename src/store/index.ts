@@ -1,4 +1,3 @@
-export { useBlobStore } from './blobStore';
 export { useCursorStore } from './cursorStore';
+export { useGlobalCanvasStore } from './globalCanvasStore';
 export { useGlobalStore } from './globalStore';
-export { useTransitionStore } from './transitionStore';
