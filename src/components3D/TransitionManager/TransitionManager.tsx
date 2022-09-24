@@ -10,6 +10,7 @@ import {
 import { CursorImageTransition } from '@/components3D';
 import { useBlob } from '@/hooks';
 import { useGlobalStore } from '@/store';
+import type { ICursorImageTransition } from '@/store/transitionStore';
 import { useTransitionStore } from '@/store/transitionStore';
 
 const ROUTES = {
@@ -29,23 +30,6 @@ const TRANSITIONS = {
   },
 };
 
-export interface ModelTransition {
-  type: 'model';
-}
-
-export interface CursorImageTransition {
-  type: 'cursor-image';
-  src: string;
-  background: string;
-}
-
-export type ITransition = CursorImageTransition | ModelTransition | null;
-
-export type TransitionController = {
-  setTransition: (transition: ITransition) => void;
-  getTransition: () => ITransition;
-};
-
 export const TransitionManager = () => {
   const transition = useTransitionStore((s) => s.transition);
   if (!transition) return null;
@@ -55,8 +39,8 @@ export const TransitionManager = () => {
   return (
     <CursorImageTransition
       isActive={transition?.type === 'cursor-image'}
-      src={(transition as CursorImageTransition)?.src}
-      background={(transition as CursorImageTransition)?.background}
+      src={(transition as ICursorImageTransition)?.src}
+      background={(transition as ICursorImageTransition)?.background}
     />
   );
 };
