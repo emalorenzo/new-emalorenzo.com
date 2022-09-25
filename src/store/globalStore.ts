@@ -4,8 +4,8 @@ import create from 'zustand';
 
 interface GlobalStore {
   router: NextRouter;
-  dom: React.MutableRefObject<HTMLElement> | null;
-  likeRef: React.MutableRefObject<HTMLElement | null>;
+  dom: React.RefObject<HTMLElement> | null;
+  likeRef: React.RefObject<HTMLElement | null>;
 }
 
 export const useGlobalStore = create<GlobalStore>((set) => ({

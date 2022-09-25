@@ -42,12 +42,14 @@ export const TableOfContents = () => {
       'h2#contenido+ul'
     ) as HTMLElement;
     if (mdxGeneratedTOCList) {
+      mdxGeneratedTOCList.style.display = 'none';
       // mdxGeneratedTOCList.remove();
     }
     const mdxGeneratedTOC = document.querySelector(
       'h2#contenido'
     ) as HTMLElement;
     if (mdxGeneratedTOC) {
+      mdxGeneratedTOC.style.display = 'none';
       // mdxGeneratedTOC.remove();
     }
   }, []);

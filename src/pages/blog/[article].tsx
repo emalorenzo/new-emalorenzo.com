@@ -69,7 +69,7 @@ interface Props {
 }
 
 const ArticlePage: NextPageWithLayout<Props> = ({ mdx, metadata }) => {
-  const likeRef = useRef(null);
+  const likeRef = useRef<HTMLDivElement>(null);
   const { title, image, subtitle, background } = metadata;
   const dom = useGlobalStore((s) => s.dom);
   const { setTransition } = useGlobalCanvasStore.getState();
@@ -97,7 +97,7 @@ const ArticlePage: NextPageWithLayout<Props> = ({ mdx, metadata }) => {
       <Head />
       <Canvas
         onCreated={(state) => state.events.connect(dom.current)}
-        className="canvas"
+        className="canvas !absolute !z-30 inset-0"
       >
         <PerspectiveCamera makeDefault fov={20} far={1000} />
         <ArticleScene />
@@ -115,13 +115,13 @@ const ArticlePage: NextPageWithLayout<Props> = ({ mdx, metadata }) => {
             {subtitle}
           </Typography.Subtitle>
         </MaxWidthWrapper>
-        <MaxWidthWrapper className="flex flex-row-reverse relative justify-end">
-          <div className="flex flex-col ml-40">
-            <div className="sticky top-16">
-              <TableOfContents />
-              <div ref={likeRef} className="w-32 h-32" />
-            </div>
-          </div>
+        <MaxWidthWrapper
+          className=""
+          style={{
+            display: 'grid',
+            gridTemplate: '100% / 1fr 300px',
+          }}
+        >
           <Article
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -130,6 +130,12 @@ const ArticlePage: NextPageWithLayout<Props> = ({ mdx, metadata }) => {
           >
             <MDX source={mdx} />
           </Article>
+          <div className="flex flex-col ml-40">
+            <div className="sticky top-0">
+              <TableOfContents />
+              <div ref={likeRef} className="w-32 h-32" />
+            </div>
+          </div>
         </MaxWidthWrapper>
         <Footer />
       </motion.main>
