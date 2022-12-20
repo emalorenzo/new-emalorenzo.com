@@ -9,9 +9,6 @@ module.exports = withBundleAnalyzer({
   compiler: {
     styledComponents: true,
   },
-  experimental: {
-    concurrentFeatures: true,
-  },
   reactStrictMode: true,
 
   // TODO: I'd like to have my blog on blog.emalorenzo.com
