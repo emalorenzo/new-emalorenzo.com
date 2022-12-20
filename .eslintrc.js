@@ -48,6 +48,7 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': ['error'],
     'consistent-return': 'off',
     'import/extensions': 'off',
+    'no-param-reassign': 'off',
     // We will use href prop in Next.js's Link component instead of anchor tag
     'import/order': [
       'warn',

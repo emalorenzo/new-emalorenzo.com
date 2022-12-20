@@ -8,7 +8,7 @@
     width: 100% !important;
     height: 100vh !important;
     inset: 0;
-    z-index: 2;
+    z-index: 0;
     pointer-events: none !important;
   }
 

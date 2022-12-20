@@ -1,17 +1,22 @@
+import { OrbitControls } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import type { NextPage } from 'next';
 import React, { useEffect } from 'react';
 
 import { Footer, Head, Hero } from '@/components';
 import { useCursor } from '@/hooks';
-import { useGlobalCanvasStore } from '@/store';
-import type { ArticleMeta, NextPageWithLayout } from '@/types';
+import { ApartmentScene } from '@/scenes';
+import { useGlobalCanvasStore, useGlobalStore } from '@/store';
+import type { ArticleMeta } from '@/types';
 
 interface Props {
   articles: ArticleMeta[];
   tags: string[];
 }
 
-const HomePage: NextPageWithLayout<Props> = () => {
+const HomePage: NextPage<Props> = () => {
   const { setCursor } = useCursor();
+  const dom = useGlobalStore((s) => s.dom);
   const { setBlob } = useGlobalCanvasStore.getState();
 
   useEffect(() => {
@@ -21,7 +26,17 @@ const HomePage: NextPageWithLayout<Props> = () => {
 
   return (
     <>
-      <main className="flex flex-col justify-center max-w-center items-stretch flex-1">
+      <Canvas
+        style={{ pointerEvents: 'none' }}
+        onCreated={(state) => state.events.connect(dom.current)}
+        className="canvas"
+        camera={{ fov: 45, position: [1, 3, 7] }}
+      >
+        {/* <ambientLight intensity={0.5} /> */}
+        <OrbitControls />
+        <ApartmentScene />
+      </Canvas>
+      <main className="relative flex flex-col justify-center max-w-center items-stretch flex-1">
         <Head />
         <Hero />
       </main>

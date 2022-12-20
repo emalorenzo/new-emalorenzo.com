@@ -21,7 +21,7 @@ export const GlobalCanvas = () => {
     <Canvas
       orthographic
       camera={{ fov: 12, zoom: 100, position: [0, 0, 100] }}
-      className="!fixed inset-0 pointer-events-none"
+      className="!fixed !inset-0 !pointer-events-none"
     >
       <Scene />
     </Canvas>

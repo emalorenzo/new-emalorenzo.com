@@ -10,7 +10,7 @@ export const ArticleScene = () => {
     <Suspense fallback={null}>
       {/* @ts-ignore */}
       <View track={likeRef}>
-        <Heart scaleFactor={0.0008} maxCount={20} />
+        <Heart scaleFactor={0.0008} maxCount={5} />
       </View>
     </Suspense>
   );

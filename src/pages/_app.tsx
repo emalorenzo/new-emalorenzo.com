@@ -21,6 +21,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 
   return (
     <>
+      <GlobalStyles />
       <Dom>
         <Header />
         <AnimatePresence mode="wait">
@@ -37,9 +38,8 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
           </motion.div>
         </AnimatePresence>
       </Dom>
-      {/* This bad boi won't rerender and it will hold the transitions */}
+      {/* GlobalCanvas won't rerender and it will hold the transitions */}
       <GlobalCanvas />
-      <GlobalStyles />
     </>
   );
 };
