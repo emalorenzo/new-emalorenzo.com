@@ -85,6 +85,7 @@ module.exports = {
     'simple-import-sort/exports': 'error',
     'simple-import-sort/imports': 'error',
     'sort-keys': 'off',
+    camelcase: 'off',
   },
   settings: {
     // TypeScript needs this to resolve nextjs absolute imports
