@@ -6,7 +6,7 @@ import { useGLTF } from '@react-three/drei';
 import React, { useRef } from 'react';
 
 export const Apartment = (props) => {
-  const { nodes, materials } = useGLTF('/models/apartment.glb');
+  const { nodes, materials } = useGLTF('/models/apartment.glb') as any;
   return (
     <group {...props} dispose={null} position={[0, 0, 0]}>
       <group>
