@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@next/bundle-analyzer": "^12.1.0",
-    "@react-three/drei": "^9.29.1",
+    "@react-three/drei": "^9.47.1",
     "@react-three/fiber": "^8.9.1",
     "@supabase/supabase-js": "^1.35.6",
     "babel-plugin-glsl": "^1.0.0",
