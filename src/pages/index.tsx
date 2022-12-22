@@ -27,13 +27,20 @@ const HomePage: NextPage<Props> = () => {
   return (
     <>
       <Canvas
+        shadows
+        linear
         style={{ pointerEvents: 'none' }}
         onCreated={(state) => state.events.connect(dom.current)}
         className="canvas"
-        camera={{ fov: 45, position: [1, 3, 7] }}
+        camera={{ fov: 45, position: [0, 4, 10] }}
       >
         {/* <ambientLight intensity={0.5} /> */}
-        <OrbitControls />
+        <OrbitControls
+          minPolarAngle={0}
+          maxPolarAngle={Math.PI / 2.2}
+          minAzimuthAngle={-Math.PI / 2}
+          maxAzimuthAngle={Math.PI / 2}
+        />
         <ApartmentScene />
       </Canvas>
       <main className="relative flex flex-col justify-center max-w-center items-stretch flex-1">
