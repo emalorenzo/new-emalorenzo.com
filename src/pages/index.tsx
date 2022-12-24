@@ -37,7 +37,7 @@ const HomePage: NextPage<Props> = () => {
         {/* <ambientLight intensity={0.5} /> */}
         <OrbitControls
           minPolarAngle={0}
-          maxPolarAngle={Math.PI / 2.2}
+          // maxPolarAngle={Math.PI / 2.2}
           minAzimuthAngle={-Math.PI / 2}
           maxAzimuthAngle={Math.PI / 2}
         />
